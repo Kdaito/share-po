@@ -5,6 +5,7 @@ import Setting from "./pages/Setting";
 import PlayerList from "./pages/PlayerList";
 import Layout from "./components/Layout";
 import AddPlayer from "./pages/AddPlayer";
+import EditPlayer from "./pages/EditPlayer";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<PlayerList />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/add-player" element={<AddPlayer />} />
+          <Route path="/edit-player/:id" element={<EditPlayer />} />
         </Routes>
       </Layout>
     </>

@@ -5,8 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Chip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Card : React.FC = () => {
+  const navigate = useNavigate();
   return (
     <MUICard sx={{ maxWidth: 400 }}>
       <CardContent sx={{display: 'flex', flexDirection: 'column', pb: 0}}>
@@ -20,7 +22,7 @@ const Card : React.FC = () => {
         <Chip label='TE' variant="outlined" sx={{width: '48px', mt: '8px'}} />
       </CardContent>
       <CardActions>
-        <Button size="small">選手詳細</Button>
+        <Button size="small" onClick={() => navigate(`/edit-player/${1}`)}>選手編集</Button>
       </CardActions>
     </MUICard>
   );
