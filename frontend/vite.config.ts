@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [react({
     jsxImportSource: '@emotion/react',
   })],
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
+  },
   server: {
     host: true,
     port: 3000,

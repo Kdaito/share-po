@@ -7,4 +7,16 @@ services:
       - ./frontend/:/app
     ports:
       - "3000:3000"
-    stdin_open: true 
+    stdin_open: true
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend/:/api
+    ports:
+      - "1991:1991"
+    volumes:
+      - ./backend:/api
+    working_dir: /api
+    tty: false
+    command: reflex -r '\.go$$' -s -- sh -c 'go run cmd/server/main.go'
