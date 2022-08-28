@@ -1,18 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
-import Detail from "./pages/Detail";
+import Setting from "./pages/Setting";
 import PlayerList from "./pages/PlayerList";
+import Layout from "./components/Layout";
+import AddPlayer from "./pages/AddPlayer";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<PlayerList/>}/>
-        <Route path="/detail" element={<Detail/>}/>
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<PlayerList />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/add-player" element={<AddPlayer />} />
+        </Routes>
+      </Layout>
     </>
   );
 }
