@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   frontend:
+    container_name: nfl-app-frontend
     build:
       context: ./frontend
     volumes:
@@ -9,6 +10,7 @@ services:
       - "3000:3000"
     stdin_open: true
   backend:
+    container_name: nfl-app-backend
     build:
       context: ./backend
     volumes:
@@ -18,5 +20,17 @@ services:
     volumes:
       - ./backend:/api
     working_dir: /api
-    tty: false
+    tty: true
     command: reflex -r '\.go$$' -s -- sh -c 'go run cmd/server/main.go'
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: nfl-app-swagger-ui
+    depends_on:
+      - backend
+    environment:
+      - SWAGGER_URL=./openapi3_0.yaml
+      - SWAGGER_JSON=/swagger/openapi3_0.yaml
+    ports:
+      - 8080:8080
+    volumes:
+      - ./swagger/:/swagger

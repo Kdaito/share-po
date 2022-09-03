@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: nfl-app
+  description: "NFLの選手名鑑を日本で作成したかったの巻"
+# host: "localhost:1991"
+# basePath: /v1
+servers:
+  - url: http://localhost:1991/v1
+schemas:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: player
+    description: "選手情報について"
+paths:
+  /players:
+    get:
+      tags:
+        - player
+      summary: "選手全件取得"
+      description: "全ての選手情報を取得します"
+      operationId: index-players
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerList'
+    post:
+      tags:
+        - player
+      summary: "選手新規登録"
+      description: "選手を新規登録します"
+      operationId: create-player
+      requestBody:
+        description: "新しく登録する選手情報を入力してください"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerRequest'
+      responses:
+        '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IDResponse'
+  "/player/{id}":
+    put:
+      tags:
+        - player
+      summary: "選手情報更新"
+      description: "選手情報をidを利用して更新します"
+      operationId: update-player
+      parameters:
+        - type: integer
+          format: int64
+          in: path
+          name: id
+          required: true
+          description: "選手のid"
+      requestBody:
+        description: "更新する選手情報を入力してください"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IDResponse'
+    get:
+      tags:
+        - player
+      summary: "選手情報取得"
+      description: "idを利用して選手情報を取得します"
+      operationId: get-player
+      parameters:
+        - type: integer
+          format: int64
+          in: path
+          name: id
+          required: true
+          description: "選手id"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+components:
+  schemas:
+    PlayerList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Player'
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        memo:
+          type: string
+        playerNumber:
+          type: integer
+        position:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PlayerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        memo:
+          type: string
+        playerNumber:
+          type: integer
+        position:
+          type: integer
+    IDResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
