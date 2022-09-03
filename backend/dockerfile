@@ -1,13 +1,15 @@
 FROM golang:1.18-alpine as build-reflex
 RUN apk update && \
     apk upgrade && \
-    apk add bash git && \
+    apk add bash git gcc musl-dev && \
     rm -rf /var/cache/apk/*
 
+RUN go install github.com/go-swagger/go-swagger/cmd/swagger@latest
 RUN go install github.com/cespare/reflex@latest
 
 FROM golang:1.18-alpine
 COPY --from=build-reflex /go/bin/reflex /go/bin/reflex
+COPY --from=build-reflex /go/bin/swagger /go/bin/swagger
 
 ENV GOOS=linux \
     GOARCH=amd64 \
@@ -19,6 +21,6 @@ COPY go.mod .
 # COPY go.sum .
 RUN go mod tidy
 
-# CMD ["go", "run", "cmd/server/main.go"]
+CMD ["go", "run", "cmd/server/main.go"]
 
-# CMD ["reflex", "-r", "'(\.go$|go\.mod)'", "-s", "go", "run", "cmd/server/main.go"]
+CMD ["reflex", "-r", "'(\.go$|go\.mod)'", "-s", "go", "run", "cmd/server/main.go"]

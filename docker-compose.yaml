@@ -28,8 +28,8 @@ services:
     depends_on:
       - backend
     environment:
-      - SWAGGER_URL=./openapi3_0.yaml
-      - SWAGGER_JSON=/swagger/openapi3_0.yaml
+      - SWAGGER_URL=./openapi2.yaml
+      - SWAGGER_JSON=/swagger/openapi2.yaml
     ports:
       - 8080:8080
     volumes:

@@ -1,0 +1,132 @@
+swagger: '2.0'
+info:
+  title: nfl-app
+  description: "NFLの選手名鑑を日本で作成したかったの巻"
+  version: 1.0.0
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+host: "localhost:1991"
+basePath: /v1
+tags:
+  - name: player
+    description: "選手情報について"
+paths:
+  /players:
+    get:
+      tags:
+        - player
+      summary: "選手全件取得"
+      description: "全ての選手情報を取得します"
+      operationId: index-players
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/PlayerList'
+    post:
+      tags:
+        - player
+      summary: "選手新規登録"
+      description: "選手を新規登録します"
+      operationId: create-player
+      parameters:
+      - name: body
+        in: body
+        required: true
+        description: 'de'
+        schema:
+          $ref: '#/definitions/PlayerRequest'
+      responses:
+        '200':
+            description: Successful operation
+            schema:
+              $ref: '#/definitions/IDResponse'
+  "/player/{id}":
+    put:
+      tags:
+        - player
+      summary: "選手情報更新"
+      description: "選手情報をidを利用して更新します"
+      operationId: update-player
+      parameters:
+        - type: integer
+          format: int64
+          in: path
+          name: id
+          required: true
+          description: "選手のid"
+        - name: body
+          in: body
+          required: true
+          description: "更新する選手の情報を入力してください"
+          schema:
+            $ref: '#/definitions/PlayerRequest'
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/IDResponse'
+    get:
+      tags:
+        - player
+      summary: "選手情報取得"
+      description: "idを利用して選手情報を取得します"
+      operationId: get-player
+      parameters:
+        - type: integer
+          format: int64
+          in: path
+          name: id
+          required: true
+          description: "選手id"
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/Player'
+definitions:
+  PlayerList:
+    type: array
+    items:
+      $ref: '#/definitions/Player'
+  Player:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      memo:
+        type: string
+      playerNumber:
+        type: integer
+      position:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+  PlayerRequest:
+    type: object
+    properties:
+      name:
+        type: string
+      memo:
+        type: string
+      playerNumber:
+        type: integer
+      position:
+        type: integer
+  IDResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
