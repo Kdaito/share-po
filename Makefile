@@ -1,3 +1,7 @@
+docker-up:
+	docker-compose up
+entry-backend:
+	docker-compose exec backend /bin/sh
 gen:
 	docker-compose exec backend rm -rf ../swagger
 	docker cp ./swagger nfl-app-backend:/swagger

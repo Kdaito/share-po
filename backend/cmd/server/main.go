@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"github.com/Kdaito/nfl-app/app/interface/api"
 )
 
 func main() {
-	http.HandleFunc("/ping", handler)
-	http.ListenAndServe(":1991", nil)
-	fmt.Print("go start")
+	s := api.NewServer()
+	s.Init()
+	s.Run(1991)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
