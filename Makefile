@@ -1,7 +1,15 @@
-docker-up:
+build-docker:
+	docker-compose build
+
+hello-docker:
 	docker-compose up
+
+bye-docker:
+	docker-compose down
+
 entry-backend:
 	docker-compose exec backend /bin/sh
+
 gen:
 	docker-compose exec backend rm -rf ../swagger
 	docker cp ./swagger nfl-app-backend:/swagger
