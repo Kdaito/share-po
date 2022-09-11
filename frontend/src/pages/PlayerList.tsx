@@ -1,11 +1,11 @@
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, Grid, Pagination, Stack } from "@mui/material";
 import React from "react";
-import Card from "../features/player/components/Card";
+import Card from "../features/portfolio/components/organisms/Card";
 
 const ITEM_COUNT = 81;
 const COUNT_PER_PAGE = 10;
 
-const PlayerList: React.FC = () => {
+const PortFolioList: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleChangePage = React.useCallback(
@@ -18,23 +18,14 @@ const PlayerList: React.FC = () => {
   );
   return (
     <>
-      <Grid container spacing={2} sx={{ width: "100%" }}>
-        <Grid item xs={6}>
-          <Card />
-        </Grid>
-        <Grid item xs={6}>
-          <Card />
-        </Grid>
-        <Grid item xs={6}>
-          <Card />
-        </Grid>
-        <Grid item xs={6}>
-          <Card />
-        </Grid>
-        <Grid item xs={6}>
-          <Card />
-        </Grid>
-      </Grid>
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+      </Stack>
       <Box
         sx={{
           width: "100%",
@@ -56,4 +47,4 @@ const PlayerList: React.FC = () => {
   );
 };
 
-export default PlayerList;
+export default PortFolioList;

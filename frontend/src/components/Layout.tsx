@@ -12,7 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PeopleIcon from '@mui/icons-material/People';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            admin players
+            シェアポ
           </Typography>
         </Toolbar>
       </AppBar>
@@ -48,21 +48,21 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List>
+          <List sx={{pt: '24px'}}>
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleNavigate('/')}>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText>選手一覧</ListItemText>
+                <ListItemText>みんなの作品</ListItemText>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleNavigate('/add-player')}>
                 <ListItemIcon>
-                  <PersonAddIcon />
+                  <CreateNewFolderIcon />
                 </ListItemIcon>
-                <ListItemText>選手追加</ListItemText>
+                <ListItemText>作品追加</ListItemText>
               </ListItemButton>
             </ListItem>
           </List>
