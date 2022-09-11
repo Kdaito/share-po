@@ -1,4 +1,4 @@
-module github.com/Kdaito/nfl-app
+module github.com/Kdaito/share-po
 
 go 1.18
 

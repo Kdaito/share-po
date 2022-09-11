@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"github.com/Kdaito/nfl-app/app/interface/api"
+	"github.com/Kdaito/share-po/app/interface/api"
 )
 
 func main() {

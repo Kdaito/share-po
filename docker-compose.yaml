@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   frontend:
-    container_name: nfl-app-frontend
+    container_name: share-po-frontend
     build:
       context: ./frontend
     volumes:
@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     stdin_open: true
   backend:
-    container_name: nfl-app-backend
+    container_name: share-po-backend
     build:
       context: ./backend
     volumes:
@@ -24,7 +24,7 @@ services:
     command: reflex -r '\.go$$' -s -- sh -c 'go run cmd/server/main.go'
   swagger-ui:
     image: swaggerapi/swagger-ui
-    container_name: nfl-app-swagger-ui
+    container_name: share-po-swagger-ui
     depends_on:
       - backend
     environment:
