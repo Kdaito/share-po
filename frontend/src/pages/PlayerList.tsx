@@ -18,7 +18,7 @@ const PortFolioList: React.FC = () => {
   );
   return (
     <>
-      <Stack spacing={2} sx={{ width: "100%" }}>
+      <Stack spacing={2} sx={{ width: "100%", maxWidth: "900px", margin: '0 auto', pt: '32px' }}>
         <Card/>
         <Card/>
         <Card/>

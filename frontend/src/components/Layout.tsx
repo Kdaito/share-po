@@ -11,16 +11,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import PeopleIcon from '@mui/icons-material/People';
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { useNavigate } from "react-router-dom";
+import PeopleIcon from "@mui/icons-material/People";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
-  const handleNavigate = React.useCallback((path: string) => navigate(path), []);
+  const handleNavigate = React.useCallback(
+    (path: string) => navigate(path),
+    []
+  );
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -48,9 +51,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List sx={{pt: '24px'}}>
+          <List sx={{ pt: "24px" }}>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/')}>
+              <ListItemButton onClick={() => handleNavigate("/")}>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
@@ -58,7 +61,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/add-player')}>
+              <ListItemButton onClick={() => handleNavigate("/add-player")}>
                 <ListItemIcon>
                   <CreateNewFolderIcon />
                 </ListItemIcon>
@@ -69,7 +72,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/setting')}>
+              <ListItemButton onClick={() => handleNavigate("/setting")}>
                 <ListItemIcon>
                   <SettingsIcon />
                 </ListItemIcon>
@@ -79,7 +82,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ width: '100%', maxWidth: '880px', p: 3 }}>
+      <Box component="main" sx={{ width: "100%", p: 3 }}>
         <Toolbar />
         {children}
       </Box>
