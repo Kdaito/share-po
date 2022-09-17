@@ -1,17 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"github.com/Kdaito/share-po/app/interface/api"
+	"github.com/Kdaito/share-po/app/driver"
 )
 
 func main() {
-	s := api.NewServer()
+	s := driver.NewServer()
 	s.Init()
 	s.Run(1991)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "pong")
 }
