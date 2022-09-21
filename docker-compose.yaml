@@ -1,5 +1,19 @@
 version: '3.9'
 services:
+  db:
+      image: postgres:14.2-alpine
+      command: postgres -c log_statement=all
+      container_name: share-po-db
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: p@ssw0rd
+        POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+        PGDATA: /var/lib/postgresql/data/pgdata
+      volumes:
+        - data-volume:/var/log
+        - data-volume:/var/lib/postgresql/data
   frontend:
     container_name: share-po-frontend
     build:
@@ -34,3 +48,5 @@ services:
       - 8080:8080
     volumes:
       - ./swagger/:/swagger
+volumes:
+  data-volume:

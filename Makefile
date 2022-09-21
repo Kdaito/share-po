@@ -15,3 +15,6 @@ gen:
 	docker cp ./swagger share-po-backend:/swagger
 	docker-compose exec backend swagger generate model -t ./gen -f ../swagger/openapi2.yaml
 	docker-compose exec backend go mod tidy
+
+db-init:
+	docker-compose exec db psql --username=root --command="create database share_po"
