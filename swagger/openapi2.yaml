@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: nfl-app
-  description: "NFLの選手名鑑を日本で作成したかったの巻"
+  title: share-po
+  description: "ポートフォリオを共有、評価できるサイトです"
   version: 1.0.0
 schemes:
   - http
@@ -11,89 +11,97 @@ consumes:
   - application/json
 host: "localhost:1991"
 basePath: /v1
+securityDefinitions:
+  tokenAuth:
+    name: Authorization
+    type: apiKey
+    in: header
 tags:
-  - name: player
-    description: "選手情報について"
+  - name: user
+    description: "ユーザーについて"
 paths:
-  /players:
-    get:
-      tags:
-        - player
-      summary: "選手全件取得"
-      description: "全ての選手情報を取得します"
-      operationId: index-players
-      responses:
-        '200':
-          description: Successful operation
-          schema:
-            $ref: '#/definitions/PlayerList'
+  # /users:
+  #   get:
+  #     tags:
+  #       - user
+  #     summary: "選手全件取得"
+  #     description: "全ての選手情報を取得します"
+  #     operationId: index-players
+  #     responses:
+  #       '200':
+  #         description: Successful operation
+  #         schema:
+  #           $ref: '#/definitions/PlayerList'
+  /user:
     post:
       tags:
-        - player
-      summary: "選手新規登録"
-      description: "選手を新規登録します"
-      operationId: create-player
+        - user
+      summary: "ユーザー新規登録"
+      description: "ユーザーを新規登録します"
+      operationId: create-user
       parameters:
       - name: body
         in: body
         required: true
-        description: 'de'
+        description: 'ユーザー新規登録の際のbody'
         schema:
-          $ref: '#/definitions/PlayerRequest'
+          $ref: '#/definitions/UserRequest'
       responses:
         '200':
             description: Successful operation
             schema:
               $ref: '#/definitions/IDResponse'
-  "/player/{id}":
-    put:
-      tags:
-        - player
-      summary: "選手情報更新"
-      description: "選手情報をidを利用して更新します"
-      operationId: update-player
-      parameters:
-        - type: integer
-          format: int64
-          in: path
-          name: id
-          required: true
-          description: "選手のid"
-        - name: body
-          in: body
-          required: true
-          description: "更新する選手の情報を入力してください"
-          schema:
-            $ref: '#/definitions/PlayerRequest'
-      responses:
-        '200':
-          description: Successful operation
-          schema:
-            $ref: '#/definitions/IDResponse'
+  "/user/{id}":
+  #   put:
+  #     tags:
+  #       - user
+  #     summary: "選手情報更新"
+  #     description: "選手情報をidを利用して更新します"
+  #     operationId: update-user
+  #     parameters:
+  #       - type: integer
+  #         format: int64
+  #         in: path
+  #         name: id
+  #         required: true
+  #         description: "選手のid"
+  #       - name: body
+  #         in: body
+  #         required: true
+  #         description: "更新する選手の情報を入力してください"
+  #         schema:
+  #           $ref: '#/definitions/UserRequest'
+  #     responses:
+  #       '200':
+  #         description: Successful operation
+  #         schema:
+  #           $ref: '#/definitions/IDResponse'
     get:
       tags:
-        - player
-      summary: "選手情報取得"
-      description: "idを利用して選手情報を取得します"
-      operationId: get-player
+        - user
+      summary: "ユーザー情報取得"
+      description: "idを利用してユーザー情報を取得します"
+      operationId: get-user
+      security:
+        - tokenAuth: []
       parameters:
         - type: integer
           format: int64
           in: path
           name: id
           required: true
-          description: "選手id"
+          description: "user id"
       responses:
         '200':
           description: Successful operation
           schema:
-            $ref: '#/definitions/Player'
+            $ref: '#/definitions/User'
 definitions:
-  PlayerList:
+  UserList:
     type: array
     items:
-      $ref: '#/definitions/Player'
-  Player:
+      $ref: '#/definitions/User'
+  User:
     type: object
     properties:
       id:
@@ -101,29 +109,22 @@ definitions:
         format: int64
       name:
         type: string
-      memo:
+      firebaseUid:
         type: string
-      playerNumber:
-        type: integer
-      position:
-        type: integer
+      email:
+        type: string
       createdAt:
         type: string
         format: date-time
-      updatedAt:
-        type: string
-        format: date-time
-  PlayerRequest:
+  UserRequest:
     type: object
     properties:
+      firebaseUid:
+        type: string
       name:
         type: string
-      memo:
+      email:
         type: string
-      playerNumber:
-        type: integer
-      position:
-        type: integer
   IDResponse:
     type: object
     properties:

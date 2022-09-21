@@ -14,44 +14,33 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Player player
+// User user
 //
-// swagger:model Player
-type Player struct {
+// swagger:model User
+type User struct {
 
 	// created at
 	// Format: date-time
 	CreatedAt strfmt.DateTime `json:"createdAt,omitempty"`
 
+	// email
+	Email string `json:"email,omitempty"`
+
+	// firebase Uid
+	FirebaseUID string `json:"firebaseUid,omitempty"`
+
 	// id
 	ID int64 `json:"id,omitempty"`
 
-	// memo
-	Memo string `json:"memo,omitempty"`
-
 	// name
 	Name string `json:"name,omitempty"`
-
-	// player number
-	PlayerNumber int64 `json:"playerNumber,omitempty"`
-
-	// position
-	Position int64 `json:"position,omitempty"`
-
-	// updated at
-	// Format: date-time
-	UpdatedAt strfmt.DateTime `json:"updatedAt,omitempty"`
 }
 
-// Validate validates this player
-func (m *Player) Validate(formats strfmt.Registry) error {
+// Validate validates this user
+func (m *User) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreatedAt(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUpdatedAt(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,7 +50,7 @@ func (m *Player) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Player) validateCreatedAt(formats strfmt.Registry) error {
+func (m *User) validateCreatedAt(formats strfmt.Registry) error {
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -73,25 +62,13 @@ func (m *Player) validateCreatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Player) validateUpdatedAt(formats strfmt.Registry) error {
-	if swag.IsZero(m.UpdatedAt) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("updatedAt", "body", "date-time", m.UpdatedAt.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validates this player based on context it is used
-func (m *Player) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this user based on context it is used
+func (m *User) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *Player) MarshalBinary() ([]byte, error) {
+func (m *User) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -99,8 +76,8 @@ func (m *Player) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Player) UnmarshalBinary(b []byte) error {
-	var res Player
+func (m *User) UnmarshalBinary(b []byte) error {
+	var res User
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

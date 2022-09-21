@@ -14,13 +14,13 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// PlayerList player list
+// UserList user list
 //
-// swagger:model PlayerList
-type PlayerList []*Player
+// swagger:model UserList
+type UserList []*User
 
-// Validate validates this player list
-func (m PlayerList) Validate(formats strfmt.Registry) error {
+// Validate validates this user list
+func (m UserList) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {
@@ -47,8 +47,8 @@ func (m PlayerList) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this player list based on the context it is used
-func (m PlayerList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this user list based on the context it is used
+func (m UserList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {
