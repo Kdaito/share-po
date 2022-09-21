@@ -21,9 +21,9 @@ func NewUserRepository(conn *sql.DB) port.UserRepository {
 func (u *UserRepository) GetUserByUid(ctx context.Context, uid string) (*entity.User, error) {
 	// TODO DBからuserを取得する処理
 	return &entity.User{
-		ID: "1",
+		ID:   "1",
 		Name: "hiroto",
-		UID: "1234",
+		UID:  "1234",
 	}, nil
 }
 

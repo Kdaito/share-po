@@ -10,12 +10,12 @@ import (
 
 type User struct {
 	OutputFactory func(w http.ResponseWriter) port.UserOutputPort
-	InputFactory func(o port.UserOutputPort, r port.UserRepository) port.UserInputPort
-	RepoFactory func(c *sql.DB) port.UserRepository
-	Conn *sql.DB
+	InputFactory  func(o port.UserOutputPort, r port.UserRepository) port.UserInputPort
+	RepoFactory   func(c *sql.DB) port.UserRepository
+	Conn          *sql.DB
 }
 
-func(u *User) GetUserByUid(w http.ResponseWriter, r *http.Request) {
+func (u *User) GetUserByUid(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	vars := mux.Vars(r)
 	uid := vars["uid"]
