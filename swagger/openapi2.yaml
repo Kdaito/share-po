@@ -4,7 +4,7 @@ info:
   description: "ポートフォリオを共有、評価できるサイトです"
   version: 1.0.0
 schemes:
-  - http
+  - https
 produces:
   - application/json
 consumes:
@@ -50,7 +50,7 @@ paths:
         '200':
             description: Successful operation
             schema:
-              $ref: '#/definitions/IDResponse'
+              $ref: '#/definitions/User'
   "/user/{id}":
   #   put:
   #     tags:

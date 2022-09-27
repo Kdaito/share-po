@@ -7,6 +7,7 @@ import (
 )
 
 type UserInputPort interface {
+	CreateUser(ctx context.Context, user *entity.User)
 	GetUserByUid(ctx context.Context, uid string)
 }
 
@@ -16,5 +17,6 @@ type UserOutputPort interface {
 }
 
 type UserRepository interface {
+	CreateUser(ctx context.Context, user *entity.User) (*entity.User, error)
 	GetUserByUid(ctx context.Context, uid string) (*entity.User, error)
 }

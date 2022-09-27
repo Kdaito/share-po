@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	// "github.com/Kdaito/share-po/app/adapter/controller"
-	// "github.com/Kdaito/share-po/app/adapter/gateway"
-	// "github.com/Kdaito/share-po/app/adapter/presenter"
-	// "github.com/Kdaito/share-po/app/usecase/interactor"
+	"github.com/Kdaito/share-po/app/adapter/controller"
+	"github.com/Kdaito/share-po/app/adapter/gateway"
+	"github.com/Kdaito/share-po/app/adapter/presenter"
+	"github.com/Kdaito/share-po/app/usecase/interactor"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 )
@@ -41,18 +41,11 @@ func (s *Server) Route() *mux.Router {
 	r := mux.NewRouter()
 
 	// user
-	// user := controller.User{
-	// 	OutputFactory: presenter.NewUserOutputPort,
-	// 	InputFactory: interactor.NewUserInputPort,
-	// 	RepoFactory: gateway.NewUserRepository,
-	// 	conn: conn,
-	// }
+	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db)
 
-	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("pong"))
-	})
-	// s := r.PathPrefix("/v1").Subrouter()
+	v1 := r.PathPrefix("/v1").Subrouter()
+
+	v1.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost)
 
 	return r
 }
