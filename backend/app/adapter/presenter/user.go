@@ -30,12 +30,18 @@ func (u *User) Render(user *entity.User) {
 	// レスポンス用にbyte配列に変える
 	res, err := json.Marshal(result)
 
+	// u.w.Header().Set("Access-Control-Allow-Headers", "*")
+	// u.w.Header().Set("Access-Control-Allow-Origin", "*")
+	// u.w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+
+
 	if err != nil {
 		u.w.WriteHeader(http.StatusInternalServerError)
 		u.w.Write([]byte(err.Error()))
 		return
 	}
 
+	// u.w.Header().Set("Content-Type", "application/json")
 	u.w.WriteHeader(http.StatusOK)
 	u.w.Write(res)
 }

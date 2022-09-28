@@ -9,6 +9,7 @@ import (
 	"github.com/Kdaito/share-po/app/adapter/gateway"
 	"github.com/Kdaito/share-po/app/adapter/presenter"
 	"github.com/Kdaito/share-po/app/usecase/interactor"
+	"github.com/Kdaito/share-po/app/driver/middleware"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 )
@@ -39,13 +40,14 @@ func (s *Server) Run(port int) {
 
 func (s *Server) Route() *mux.Router {
 	r := mux.NewRouter()
+	r.Use(middleware.CORSMethodMiddleware)
 
 	// user
 	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db)
 
 	v1 := r.PathPrefix("/v1").Subrouter()
 
-	v1.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost)
+	v1.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost, http.MethodOptions)
 
 	return r
 }
