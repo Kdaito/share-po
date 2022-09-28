@@ -22,10 +22,10 @@ func NewUserOutputPort(w http.ResponseWriter) port.UserOutputPort {
 
 func (u *User) Render(user *entity.User) {
 	result := &models.User{
-		ID: 1,
+		ID:          1,
 		FirebaseUID: user.FirebaseUID,
-		Name: user.Name,
-		Email: user.Email,
+		Name:        user.Name,
+		Email:       user.Email,
 	}
 	// レスポンス用にbyte配列に変える
 	res, err := json.Marshal(result)
@@ -33,7 +33,6 @@ func (u *User) Render(user *entity.User) {
 	// u.w.Header().Set("Access-Control-Allow-Headers", "*")
 	// u.w.Header().Set("Access-Control-Allow-Origin", "*")
 	// u.w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-
 
 	if err != nil {
 		u.w.WriteHeader(http.StatusInternalServerError)

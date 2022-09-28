@@ -8,8 +8,8 @@ import (
 	"github.com/Kdaito/share-po/app/adapter/controller"
 	"github.com/Kdaito/share-po/app/adapter/gateway"
 	"github.com/Kdaito/share-po/app/adapter/presenter"
-	"github.com/Kdaito/share-po/app/usecase/interactor"
 	"github.com/Kdaito/share-po/app/driver/middleware"
+	"github.com/Kdaito/share-po/app/usecase/interactor"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 )
