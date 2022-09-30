@@ -20,9 +20,9 @@ import (
 )
 
 type Server struct {
-	router 			*mux.Router
-	db     			*sqlx.DB
-	authClient	*auth.Client
+	router     *mux.Router
+	db         *sqlx.DB
+	authClient *auth.Client
 }
 
 func NewServer() *Server {
@@ -30,13 +30,11 @@ func NewServer() *Server {
 }
 
 func (s *Server) Init(databaseSource string) error {
-	s.router = s.Route()
-
 	// firebase接続
 	opt := option.WithCredentialsFile("/tmp/service-account.json")
 	app, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
-					log.Fatalf("error initializing firebase app: %v\n", err)
+		log.Fatalf("error initializing firebase app: %v\n", err)
 	}
 
 	client, err := app.Auth(context.Background())
@@ -44,6 +42,7 @@ func (s *Server) Init(databaseSource string) error {
 		log.Fatalf("error initializing firebase authentication: %v\n", err)
 	}
 	s.authClient = client
+	s.router = s.Route()
 
 	// db接続
 	db, err := sqlx.Connect("postgres", databaseSource)
@@ -61,7 +60,7 @@ func (s *Server) Run(port int) {
 
 func (s *Server) Route() *mux.Router {
 	r := mux.NewRouter()
-	
+
 	// middleware
 	authMiddleware := middleware.NewAuth(s.authClient)
 	corsMiddleware := cors.New(cors.Options{
@@ -77,7 +76,7 @@ func (s *Server) Route() *mux.Router {
 			http.MethodDelete,
 		},
 	})
-	
+
 	r.Use(corsMiddleware.Handler)
 	// r.Use(authMiddleware.Handler)
 
@@ -90,7 +89,7 @@ func (s *Server) Route() *mux.Router {
 	authRoute.Use(authMiddleware.Handler)
 
 	authRoute.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost, http.MethodOptions)
-	
+
 	// commonRoute := v1.NewRoute().Subrouter()
 
 	return r

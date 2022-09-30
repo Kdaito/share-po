@@ -39,6 +39,8 @@ paths:
       summary: "ユーザー新規登録"
       description: "ユーザーを新規登録します"
       operationId: create-user
+      security:
+        - tokenAuth: []
       parameters:
       - name: body
         in: body

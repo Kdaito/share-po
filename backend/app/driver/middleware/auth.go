@@ -3,7 +3,6 @@ package middleware
 import (
 	"context"
 	"errors"
-	"log"
 	"net/http"
 
 	"firebase.google.com/go/auth"
@@ -25,7 +24,6 @@ func NewAuth(client *auth.Client) *Auth {
 
 func (a *Auth) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Print("hello world")
 		// ヘッダーからtokenを取得する
 		idToken, err := getTokenFromHeader(r)
 		if err != nil {
@@ -35,7 +33,7 @@ func (a *Auth) Handler(next http.Handler) http.Handler {
 			return
 		}
 		token, err := a.client.VerifyIDToken(r.Context(), idToken)
-		if err != nil {
+		if err != nil && token == nil {
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte(err.Error()))
 			return
