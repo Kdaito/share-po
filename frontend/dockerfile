@@ -1,10 +1,20 @@
 FROM node:16.17.0-alpine
 
+# javaもインストールする(openapi-generator-cliに必要)
+RUN apk update && \
+    apk upgrade && \
+    apk add openjdk8
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
+ENV PATH $JAVA_HOME/bin:$PATH
+
 WORKDIR /app
 
 EXPOSE 3000
 
 RUN rm -rf node_modules/
+
+RUN yarn add @openapitools/openapi-generator-cli
 
 CMD ["yarn", "install"]
 

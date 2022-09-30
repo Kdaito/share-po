@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "gen": "openapi-generator-cli generate -i ../swagger/openapi2.yaml -o ./src/openapi -g typescript-fetch",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.10.2",
     "@mui/material": "^5.10.2",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "firebase": "^9.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
