@@ -1,3 +1,5 @@
+export GOOGLE_APPLICATION_CREDENTIALS=$(HOME)/.config/gcloud/share-po-firebase-adminsdk-gowlx-76afb24940.json
+
 build-docker:
 	docker-compose build
 

@@ -33,6 +33,7 @@ services:
       - "1991:1991"
     volumes:
       - ./backend:/api
+      - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/service-account.json
     working_dir: /api
     tty: true
     command: reflex -r '\.go$$' -s -- sh -c 'go run cmd/server/main.go'
