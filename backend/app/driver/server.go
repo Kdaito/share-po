@@ -14,14 +14,15 @@ import (
 	"github.com/Kdaito/share-po/app/driver/middleware"
 	"github.com/Kdaito/share-po/app/usecase/interactor"
 	"github.com/gorilla/mux"
-	"github.com/jmoiron/sqlx"
 	"github.com/rs/cors"
 	"google.golang.org/api/option"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type Server struct {
 	router     *mux.Router
-	db         *sqlx.DB
+	db         *gorm.DB
 	authClient *auth.Client
 }
 
@@ -45,7 +46,7 @@ func (s *Server) Init(databaseSource string) error {
 	s.router = s.Route()
 
 	// db接続
-	db, err := sqlx.Connect("postgres", databaseSource)
+	db, err := gorm.Open(postgres.Open(databaseSource), &gorm.Config{})
 	if err != nil {
 		return fmt.Errorf("failed db init: %s", err)
 	}

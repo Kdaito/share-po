@@ -5,14 +5,14 @@ import (
 
 	"github.com/Kdaito/share-po/app/entity"
 	"github.com/Kdaito/share-po/app/usecase/port"
-	"github.com/jmoiron/sqlx"
+	"gorm.io/gorm"
 )
 
 type UserRepository struct {
-	conn *sqlx.DB
+	conn *gorm.DB
 }
 
-func NewUserRepository(conn *sqlx.DB) port.UserRepository {
+func NewUserRepository(conn *gorm.DB) port.UserRepository {
 	return &UserRepository{
 		conn: conn,
 	}
@@ -33,6 +33,6 @@ func (u *UserRepository) GetUserByUid(ctx context.Context, uid string) (*entity.
 	}, nil
 }
 
-func (u *UserRepository) GetDBConn() *sqlx.DB {
+func (u *UserRepository) GetDBConn() *gorm.DB {
 	return u.conn
 }

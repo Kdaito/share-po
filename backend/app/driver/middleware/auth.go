@@ -27,14 +27,13 @@ func (a *Auth) Handler(next http.Handler) http.Handler {
 		// ヘッダーからtokenを取得する
 		idToken, err := getTokenFromHeader(r)
 		if err != nil {
-			// w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))
 			return
 		}
 		token, err := a.client.VerifyIDToken(r.Context(), idToken)
 		if err != nil && token == nil {
-			w.WriteHeader(http.StatusOK)
+			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))
 			return
 		}
