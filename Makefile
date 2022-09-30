@@ -32,3 +32,7 @@ gen-back:
 .PHONY: db-init
 db-init:
 	docker-compose exec db psql --username=root --command="create database share_po"
+
+.PHONY: db-migration
+db-migration:
+	docker-compose exec backend go run cmd/migration/main.go

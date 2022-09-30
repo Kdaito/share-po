@@ -1,8 +1,10 @@
 package entity
 
+import "gorm.io/gorm"
+
 type User struct {
-	ID          int64  `db:"id"`
-	FirebaseUID string `db:"firebase_uid"`
-	Name        string `db:"name"`
-	Email       string `db:"email"`
+	gorm.Model
+	FirebaseUID string `gorm:"firebase_uid"`
+	Name        string `gorm:"name"`
+	Email       string `gorm:"email"`
 }
