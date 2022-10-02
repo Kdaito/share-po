@@ -6,18 +6,16 @@ const CommonRoutes: React.FC = () => {
   const { token, initialized } = React.useContext(AuthContext);
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    if (initialized && token !== "") {
+      navigate(-1);
+    }
+  }, [initialized, token]);
+
   // 初期化処理が終わっていない場合はローディング画面へ
-  if (!initialized) return (<>loading...</>);
+  if (!initialized) return <>loading...</>;
 
-  // 認証トークンが発行されている場合は認証画面へ遷移させない
-  if (token !== "") {
-    console.log(token);
-    navigate(-1);
-  }
-
-  return (
-    <Outlet/>
-  );
+  return <Outlet />;
 };
 
 export default CommonRoutes;

@@ -90,6 +90,7 @@ func (s *Server) Route() *mux.Router {
 	authRoute.Use(authMiddleware.Handler)
 
 	authRoute.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost, http.MethodOptions)
+	authRoute.HandleFunc("/user/{firebaseUid}", user.GetUserByUid).Methods(http.MethodGet, http.MethodOptions)
 
 	// commonRoute := v1.NewRoute().Subrouter()
 

@@ -1,48 +1,59 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import React from "react";
 import { auth } from "../api/firebase";
-import { getToken } from "../api/firebase/auth";
 
 export const AuthContext = React.createContext<{
   initialized: boolean;
   token: string;
-  generateToken: () => Promise<void>;
+  firebaseUser: FirebaseUser | null;
 }>({
   initialized: false,
   token: "",
-  generateToken: () => {
-    throw new Error("generate token failed");
-  },
+  firebaseUser: null,
 });
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const [initializedFirebaseUser, setInitializedFirebaseUser] =
+    React.useState(false);
   const [initialized, setInitialized] = React.useState(false);
   const [token, setToken] = React.useState("");
+  const [firebaseUser, setFirebaseUser] = React.useState<FirebaseUser | null>(
+    null
+  );
 
+  // 認証第一段階
   React.useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const token = await user.getIdToken();
-        console.log(token);
-        setToken(token);
-      }
-      setInitialized(true);
+    onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+      setInitializedFirebaseUser(true);
     });
   }, []);
 
-  const generateToken = React.useCallback(async () => {
-    await getToken((token: string) => {
-      setToken(token);
-    }).catch((e: Error) => {
-      console.error(e);
-      // ログアウトして認証ページに遷移する処理
-    });
-  }, []);
+  // 認証第二段階
+  React.useEffect(() => {
+    // 第一段階が終わっていなかったらスキップする
+    if (!initializedFirebaseUser) return;
+    const f = async () => {
+      // tokenを取得する
+      if (firebaseUser) {
+        const newToken = await firebaseUser.getIdToken();
+        setToken(newToken);
+        console.log(`Bearer ${newToken}`);
+      }
+    };
+
+    f()
+      .catch(() => console.error("tokenの取得に失敗したわ"))
+      .finally(() => {
+        console.log("認証処理終わり");
+        setInitialized(true);
+      });
+  }, [firebaseUser, initializedFirebaseUser]);
 
   return (
-    <AuthContext.Provider value={{ initialized, token, generateToken }}>
+    <AuthContext.Provider value={{ initialized, firebaseUser, token }}>
       {children}
     </AuthContext.Provider>
   );

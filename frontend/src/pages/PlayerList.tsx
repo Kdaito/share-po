@@ -9,8 +9,6 @@ const COUNT_PER_PAGE = 10;
 const PortFolioList: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  const { generateToken } = React.useContext(AuthContext);
-
   const handleChangePage = React.useCallback(
     (event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page),
     []
@@ -21,14 +19,16 @@ const PortFolioList: React.FC = () => {
   );
   return (
     <>
-      <button onClick={async () => await generateToken()}>idToken生成</button>
-      <Stack spacing={2} sx={{ width: "100%", maxWidth: "900px", margin: '0 auto', pt: '32px' }}>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
+      <Stack
+        spacing={2}
+        sx={{ width: "100%", maxWidth: "900px", margin: "0 auto", pt: "32px" }}
+      >
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </Stack>
       <Box
         sx={{

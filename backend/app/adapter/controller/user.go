@@ -51,6 +51,6 @@ func (u *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 func (u *UserController) GetUserByUid(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	vars := mux.Vars(r)
-	uid := vars["uid"]
+	uid := vars["firebaseUid"]
 	u.newInputPort(w).GetUserByUid(ctx, uid)
 }

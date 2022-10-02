@@ -7,17 +7,18 @@ const AuthRoutes: React.FC = () => {
   const { token, initialized } = React.useContext(AuthContext);
   const navigate = useNavigate();
 
-  // 初期化処理が終わっていない場合はローディング画面へ
-  if (!initialized) return (<>loading...</>);
+  React.useEffect(() => {
+    if (initialized && token === "") {
+      navigate("/auth");
+    }
+  }, [initialized]);
 
-  // 認証トークンが発行されていない場合は認証画面へ
-  if (token === "") {
-    navigate('/auth');
-  }
+  // 初期化処理が終わっていない場合はローディング画面へ
+  if (!initialized) return <>loading...</>;
 
   return (
     <Layout>
-      <Outlet/>
+      <Outlet />
     </Layout>
   );
 };

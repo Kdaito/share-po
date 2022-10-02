@@ -17,12 +17,12 @@ export const signInWithGoogle = async (callback: (uid: string) => void) => {
 };
 
 // token取得
-export const getToken = async (setIdToken: (idToken: string) => void) => {
+export const getToken = async () => {
   if (!auth.currentUser) throw new Error("認証できてないよ");
-  await auth.currentUser
+  const token = await auth.currentUser
     .getIdToken(true)
-    .then((idToken) => setIdToken(idToken))
     .catch(() => {
       throw new Error("token取得失敗");
     });
+  return token;
 };

@@ -30,7 +30,7 @@ export interface CreateUserRequest {
 }
 
 export interface GetUserRequest {
-    id: number;
+    firebaseUid: string;
 }
 
 /**
@@ -82,8 +82,8 @@ export class UserApi extends runtime.BaseAPI {
      * ユーザー情報取得
      */
     async getUserRaw(requestParameters: GetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<User>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getUser.');
+        if (requestParameters.firebaseUid === null || requestParameters.firebaseUid === undefined) {
+            throw new runtime.RequiredError('firebaseUid','Required parameter requestParameters.firebaseUid was null or undefined when calling getUser.');
         }
 
         const queryParameters: any = {};
@@ -95,7 +95,7 @@ export class UserApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/user/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/user/{firebaseUid}`.replace(`{${"firebaseUid"}}`, encodeURIComponent(String(requestParameters.firebaseUid))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
