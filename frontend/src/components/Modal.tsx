@@ -1,15 +1,14 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import MUIModal from "@mui/material/Modal";
+import React from 'react';
+import Box from '@mui/material/Box';
+import MUIModal from '@mui/material/Modal';
 
 const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   minWidth: 400,
-  bgcolor: "background.paper",
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 1,
@@ -21,7 +20,7 @@ type Props = {
   onClose: () => void;
 };
 
-const Modal: React.FC<Props> = ({ children,isOpen, onClose }) => {
+const Modal: React.FC<Props> = ({ children, isOpen, onClose }) => {
   return (
     <div>
       <MUIModal

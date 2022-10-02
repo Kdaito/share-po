@@ -1,7 +1,6 @@
-import { Box, Grid, Pagination, Stack } from "@mui/material";
-import React from "react";
-import { AuthContext } from "../context/AuthContext";
-import Card from "../features/portfolio/components/organisms/Card";
+import { Box, Pagination, Stack } from '@mui/material';
+import React from 'react';
+import Card from '../features/portfolio/components/organisms/Card';
 
 const ITEM_COUNT = 81;
 const COUNT_PER_PAGE = 10;
@@ -11,17 +10,17 @@ const PortFolioList: React.FC = () => {
 
   const handleChangePage = React.useCallback(
     (event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page),
-    []
+    [],
   );
   const totalPage = React.useMemo(
     () => Math.ceil(ITEM_COUNT / COUNT_PER_PAGE),
-    []
+    [],
   );
   return (
     <>
       <Stack
         spacing={2}
-        sx={{ width: "100%", maxWidth: "900px", margin: "0 auto", pt: "32px" }}
+        sx={{ width: '100%', maxWidth: '900px', margin: '0 auto', pt: '32px' }}
       >
         <Card />
         <Card />
@@ -32,10 +31,10 @@ const PortFolioList: React.FC = () => {
       </Stack>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           pt: 8,
         }}
       >

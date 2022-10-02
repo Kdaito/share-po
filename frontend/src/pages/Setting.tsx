@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Setting: React.FC = () => {
   return (
@@ -6,6 +6,6 @@ const Setting: React.FC = () => {
       setting page
     </div>
   );
-}
+};
 
 export default Setting;

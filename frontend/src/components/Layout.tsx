@@ -1,20 +1,20 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import PeopleIcon from "@mui/icons-material/People";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { Outlet, useNavigate } from "react-router-dom";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import PeopleIcon from '@mui/icons-material/People';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -22,11 +22,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const handleNavigate = React.useCallback(
     (path: string) => navigate(path),
-    []
+    [navigate],
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -43,17 +43,17 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
+          ['& .MuiDrawer-paper']: {
             width: drawerWidth,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
           },
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
-          <List sx={{ pt: "24px" }}>
+        <Box sx={{ overflow: 'auto' }}>
+          <List sx={{ pt: '24px' }}>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate("/")}>
+              <ListItemButton onClick={() => handleNavigate('/')}>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
@@ -61,7 +61,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate("/add-player")}>
+              <ListItemButton onClick={() => handleNavigate('/add-player')}>
                 <ListItemIcon>
                   <CreateNewFolderIcon />
                 </ListItemIcon>
@@ -72,7 +72,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate("/setting")}>
+              <ListItemButton onClick={() => handleNavigate('/setting')}>
                 <ListItemIcon>
                   <SettingsIcon />
                 </ListItemIcon>
@@ -82,7 +82,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ width: "100%", p: 3 }}>
+      <Box component="main" sx={{ width: '100%', p: 3 }}>
         <Toolbar />
         {children}
       </Box>

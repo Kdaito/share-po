@@ -1,19 +1,19 @@
-import React from "react";
-import { Portfolio } from "../../types";
-import FormOrganism from "../organisms/Form";
-import ConfirmModal from "../organisms/ConfirmModal";
+import React from 'react';
+import { Portfolio } from '../../types';
+import FormOrganism from '../organisms/Form';
+import ConfirmModal from '../organisms/ConfirmModal';
 
 type Props = {
   data: Portfolio | undefined;
   setData: (data: Portfolio | undefined) => void;
   onClickConfirm: () => void;
-}
+};
 
-const Form: React.FC<Props> = ({data, setData, onClickConfirm}) => {
+const Form: React.FC<Props> = ({ data, setData, onClickConfirm }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleConfirm = React.useCallback(() => {
-    setIsOpen(false)
+    setIsOpen(false);
     onClickConfirm();
   }, [setIsOpen, onClickConfirm]);
 

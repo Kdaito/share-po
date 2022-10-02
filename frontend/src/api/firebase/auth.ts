@@ -1,5 +1,5 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from ".";
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '.';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -18,11 +18,11 @@ export const signInWithGoogle = async (callback: (uid: string) => void) => {
 
 // token取得
 export const getToken = async () => {
-  if (!auth.currentUser) throw new Error("認証できてないよ");
+  if (!auth.currentUser) throw new Error('認証できてないよ');
   const token = await auth.currentUser
     .getIdToken(true)
     .catch(() => {
-      throw new Error("token取得失敗");
+      throw new Error('token取得失敗');
     });
   return token;
 };

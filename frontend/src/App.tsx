@@ -1,14 +1,14 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Setting from "./pages/Setting";
-import PlayerList from "./pages/PlayerList";
-import AddPortfolio from "./pages/AddPortfolio";
-import SignIn from "./pages/auth/SignIn";
-import AuthProvider from "./context/AuthContext";
-import UserProvider from "./context/UserContext";
-import AuthRoutes from "./routes/AuthRoutes";
-import CommonRoutes from "./routes/CommonRoutes";
-import ApiProvider from "./context/ApiContext";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Setting from './pages/Setting';
+import PlayerList from './pages/PortfolioList';
+import AddPortfolio from './pages/AddPortfolio';
+import SignIn from './pages/auth/SignIn';
+import AuthProvider from './context/AuthContext';
+import UserProvider from './context/UserContext';
+import AuthRoutes from './routes/AuthRoutes';
+import CommonRoutes from './routes/CommonRoutes';
+import ApiProvider from './context/ApiContext';
 // import EditPlayer from "./pages/EditPlayer";
 
 function App() {

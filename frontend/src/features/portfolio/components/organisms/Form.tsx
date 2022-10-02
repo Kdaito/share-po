@@ -3,10 +3,10 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@mui/material";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Portfolio } from "../../types";
+} from '@mui/material';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Portfolio } from '../../types';
 
 export type Props = {
   onClickSubmit: (value: Portfolio) => void;
@@ -19,10 +19,10 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
     handleSubmit,
     formState: { isValid },
   } = useForm<Portfolio>({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: defaultValue || {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
       createdAt: null,
     },
   });
@@ -33,7 +33,7 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
 
   return (
     <>
-      <Typography variant="h5" component="p" sx={{ pb: "32px" }}>
+      <Typography variant="h5" component="p" sx={{ pb: '32px' }}>
         作品の情報を入力してください
       </Typography>
       <Grid
@@ -47,7 +47,7 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
             fullWidth
             id="Portfolio-name"
             label="作品名"
-            {...register("name", { required: true })}
+            {...register('name', { required: true })}
           />
         </Grid>
         <Grid item xs={12}>
@@ -57,7 +57,7 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
             label="作品情報"
             multiline
             rows={6}
-            {...register("description", { required: true })}
+            {...register('description', { required: true })}
           />
         </Grid>
         <Grid item xs={12}></Grid>

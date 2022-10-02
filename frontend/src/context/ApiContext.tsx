@@ -1,6 +1,6 @@
-import React from "react";
-import { Configuration, UserApi } from "../openapi";
-import { AuthContext } from "./AuthContext";
+import React from 'react';
+import { Configuration, UserApi } from '../openapi';
+import { AuthContext } from './AuthContext';
 
 export const ApiContext = React.createContext<{
   userApi: UserApi;
@@ -14,7 +14,7 @@ const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { token } = React.useContext(AuthContext);
 
   const config = React.useMemo(() => {
-    if (token !== "") {
+    if (token !== '') {
       return new Configuration({
         basePath: BASE_PATH,
         apiKey: `Bearer ${token}`,
@@ -23,11 +23,11 @@ const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return new Configuration({
       basePath: BASE_PATH,
     });
-  }, []);
+  }, [token]);
 
   const userApi = React.useMemo(() => {
     return new UserApi(config);
-  }, []);
+  }, [config]);
 
   return (
     <ApiContext.Provider value={{ userApi }}>

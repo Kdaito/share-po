@@ -1,6 +1,6 @@
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
-import React from "react";
-import { auth } from "../api/firebase";
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import React from 'react';
+import { auth } from '../api/firebase';
 
 export const AuthContext = React.createContext<{
   initialized: boolean;
@@ -8,7 +8,7 @@ export const AuthContext = React.createContext<{
   firebaseUser: FirebaseUser | null;
 }>({
   initialized: false,
-  token: "",
+  token: '',
   firebaseUser: null,
 });
 
@@ -18,9 +18,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [initializedFirebaseUser, setInitializedFirebaseUser] =
     React.useState(false);
   const [initialized, setInitialized] = React.useState(false);
-  const [token, setToken] = React.useState("");
+  const [token, setToken] = React.useState('');
   const [firebaseUser, setFirebaseUser] = React.useState<FirebaseUser | null>(
-    null
+    null,
   );
 
   // 認証第一段階
@@ -45,9 +45,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     f()
-      .catch(() => console.error("tokenの取得に失敗したわ"))
+      .catch(() => console.error('tokenの取得に失敗したわ'))
       .finally(() => {
-        console.log("認証処理終わり");
+        console.log('認証処理終わり');
         setInitialized(true);
       });
   }, [firebaseUser, initializedFirebaseUser]);

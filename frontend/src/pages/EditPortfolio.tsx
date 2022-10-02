@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+
 // import { useParams } from "react-router-dom";
 // import Form from "../features/portfolio/components/organisms/Form";
 // import { Player } from "../features/portfolio/types";
@@ -10,18 +11,18 @@ import React from "react";
 //   position: 2,
 // }
 
-// const EditPlayer: React.FC = () => {
-//   const { id } = useParams();
+const EditPortfolio: React.FC = () => {
+  // const { id } = useParams();
 
-//   const onClickConfirm = React.useCallback((data: Player) => {
-//     console.log('data');
-//     console.log(data)
-//   }, []);
-//   return (
-//     <>
-//       <Form onClickConfirm={onClickConfirm} defaultValue={player}/>
-//     </>
-//   );
-// };
+  // const onClickConfirm = React.useCallback((data: Player) => {
+  //   console.log('data');
+  //   console.log(data)
+  // }, []);
+  return (
+    <>
+      {/* <Form onClickConfirm={onClickConfirm} defaultValue={player}/> */}
+    </>
+  );
+};
 
-// export default EditPlayer;
+export default EditPortfolio;

@@ -1,8 +1,8 @@
-import Modal from "../../../../components/Modal";
-import { Box } from "@mui/system";
-import React from "react";
-import { Button, Typography } from "@mui/material";
-import { Portfolio } from "../../types";
+import Modal from '../../../../components/Modal';
+import { Box } from '@mui/system';
+import React from 'react';
+import { Button, Typography } from '@mui/material';
+import { Portfolio } from '../../types';
 
 type Props = {
   data: Portfolio;
@@ -19,8 +19,8 @@ const ConfirmModal: React.FC<Props> = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <Box sx={{ width: "500px" }}>
-        <Typography sx={{ pb: "16px" }}>
+      <Box sx={{ width: '500px' }}>
+        <Typography sx={{ pb: '16px' }}>
           以下の内容で入力を完了します
         </Typography>
         <Typography
@@ -48,7 +48,7 @@ const ConfirmModal: React.FC<Props> = ({
         <Button
           fullWidth
           variant="contained"
-          sx={{ mt: "24px" }}
+          sx={{ mt: '24px' }}
           onClick={handleConfirm}
         >
           完了する
