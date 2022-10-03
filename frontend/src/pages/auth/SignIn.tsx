@@ -18,7 +18,7 @@ const SignIn: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
+        flexDirection: 'column'
       }}
     >
       <Box
@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           height: '700px',
-          width: '900px',
+          width: '900px'
         }}
       >
         <Box
@@ -36,14 +36,14 @@ const SignIn: React.FC = () => {
             width: '500px',
             objectFit: 'contain',
             overflow: 'hidden',
-            flexShrink: 0,
+            flexShrink: 0
           }}
         >
           <img
             style={{
               width: '100%',
               height: '100%',
-              transform: 'scale(1.6, 1.6)',
+              transform: 'scale(1.6, 1.6)'
             }}
             src={SignInImage}
             alt="signIn page image"

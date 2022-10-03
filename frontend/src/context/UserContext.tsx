@@ -8,22 +8,20 @@ export const UserContext = React.createContext<{
   user: User;
   createUser: () => Promise<void>;
 }>({
-      user: {},
-      createUser: () => {
-        throw new Error('get user failed');
-      },
-    });
+  user: {},
+  createUser: () => {
+    throw new Error('get user failed');
+  }
+});
 
 const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   // const [user, setUser] = React.useState<User>({});
   const [user] = React.useState<User>({});
 
   const { firebaseUser } = React.useContext(AuthContext);
   // const { userApi } = React.useContext(ApiContext);
-
-  
 
   // firebaseUserがある場合はデータベースのユーザを取得する
   useEffect(() => {
@@ -46,8 +44,8 @@ const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       body: {
         firebaseUid: firebaseUser.uid,
         name: firebaseUser.displayName || '',
-        email: firebaseUser.email || '',
-      },
+        email: firebaseUser.email || ''
+      }
     };
 
     // await userApi

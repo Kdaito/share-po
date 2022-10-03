@@ -19,10 +19,8 @@ export const signInWithGoogle = async (callback: (uid: string) => void) => {
 // token取得
 export const getToken = async () => {
   if (!auth.currentUser) throw new Error('認証できてないよ');
-  const token = await auth.currentUser
-    .getIdToken(true)
-    .catch(() => {
-      throw new Error('token取得失敗');
-    });
+  const token = await auth.currentUser.getIdToken(true).catch(() => {
+    throw new Error('token取得失敗');
+  });
   return token;
 };

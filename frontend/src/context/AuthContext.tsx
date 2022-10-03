@@ -9,18 +9,18 @@ export const AuthContext = React.createContext<{
 }>({
   initialized: false,
   token: '',
-  firebaseUser: null,
+  firebaseUser: null
 });
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [initializedFirebaseUser, setInitializedFirebaseUser] =
     React.useState(false);
   const [initialized, setInitialized] = React.useState(false);
   const [token, setToken] = React.useState('');
   const [firebaseUser, setFirebaseUser] = React.useState<FirebaseUser | null>(
-    null,
+    null
   );
 
   // 認証第一段階

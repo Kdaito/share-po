@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 export const ApiContext = React.createContext<{
   userApi: UserApi;
 }>({
-  userApi: new UserApi(),
+  userApi: new UserApi()
 });
 
 const BASE_PATH = import.meta.env.VITE_API_HOST;
@@ -17,11 +17,11 @@ const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     if (token !== '') {
       return new Configuration({
         basePath: BASE_PATH,
-        apiKey: `Bearer ${token}`,
+        apiKey: `Bearer ${token}`
       });
     }
     return new Configuration({
-      basePath: BASE_PATH,
+      basePath: BASE_PATH
     });
   }, [token]);
 
@@ -30,9 +30,7 @@ const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [config]);
 
   return (
-    <ApiContext.Provider value={{ userApi }}>
-      {children}
-    </ApiContext.Provider>
+    <ApiContext.Provider value={{ userApi }}>{children}</ApiContext.Provider>
   );
 };
 

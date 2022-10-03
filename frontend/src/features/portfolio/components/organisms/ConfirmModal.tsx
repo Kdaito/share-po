@@ -15,7 +15,7 @@ const ConfirmModal: React.FC<Props> = ({
   data,
   isOpen,
   closeModal,
-  handleConfirm,
+  handleConfirm
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>

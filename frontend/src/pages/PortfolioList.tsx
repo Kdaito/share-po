@@ -10,11 +10,11 @@ const PortFolioList: React.FC = () => {
 
   const handleChangePage = React.useCallback(
     (event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page),
-    [],
+    []
   );
   const totalPage = React.useMemo(
     () => Math.ceil(ITEM_COUNT / COUNT_PER_PAGE),
-    [],
+    []
   );
   return (
     <>
@@ -35,7 +35,7 @@ const PortFolioList: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          pt: 8,
+          pt: 8
         }}
       >
         <Pagination

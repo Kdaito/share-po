@@ -19,9 +19,7 @@ const EditPortfolio: React.FC = () => {
   //   console.log(data)
   // }, []);
   return (
-    <>
-      {/* <Form onClickConfirm={onClickConfirm} defaultValue={player}/> */}
-    </>
+    <>{/* <Form onClickConfirm={onClickConfirm} defaultValue={player}/> */}</>
   );
 };
 

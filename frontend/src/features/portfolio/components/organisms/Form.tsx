@@ -1,9 +1,4 @@
-import {
-  Button,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Portfolio } from '../../types';
@@ -17,14 +12,14 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid }
   } = useForm<Portfolio>({
     mode: 'onChange',
     defaultValues: defaultValue || {
       name: '',
       description: '',
-      createdAt: null,
-    },
+      createdAt: null
+    }
   });
 
   const onSubmit: SubmitHandler<Portfolio> = (data) => {

@@ -11,7 +11,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
-  borderRadius: 1,
+  borderRadius: 1
 };
 
 type Props = {

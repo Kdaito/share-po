@@ -17,10 +17,13 @@ const Form: React.FC<Props> = ({ data, setData, onClickConfirm }) => {
     onClickConfirm();
   }, [setIsOpen, onClickConfirm]);
 
-  const onClickSubmit = React.useCallback((submittedData: Portfolio) => {
-    setData(submittedData);
-    setIsOpen(true);
-  }, [setData, setIsOpen]);
+  const onClickSubmit = React.useCallback(
+    (submittedData: Portfolio) => {
+      setData(submittedData);
+      setIsOpen(true);
+    },
+    [setData, setIsOpen]
+  );
 
   return (
     <>

@@ -22,7 +22,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
   const handleNavigate = React.useCallback(
     (path: string) => navigate(path),
-    [navigate],
+    [navigate]
   );
 
   return (
@@ -45,8 +45,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           flexShrink: 0,
           ['& .MuiDrawer-paper']: {
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
+            boxSizing: 'border-box'
+          }
         }}
       >
         <Toolbar />
