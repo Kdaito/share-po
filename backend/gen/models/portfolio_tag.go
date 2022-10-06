@@ -20,8 +20,8 @@ type PortfolioTag struct {
 	// id
 	ID int64 `json:"id,omitempty"`
 
-	// name
-	Name string `json:"name,omitempty"`
+	// text
+	Text string `json:"text,omitempty"`
 }
 
 // Validate validates this portfolio tag
