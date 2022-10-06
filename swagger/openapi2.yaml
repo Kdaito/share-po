@@ -53,7 +53,20 @@ paths:
             description: Successful operation
             schema:
               $ref: '#/definitions/User'
-  "/user/{firebaseUid}":
+    get:
+      tags:
+        - user
+      summary: "ユーザー情報取得"
+      description: "tokenを利用してユーザー情報を取得します"
+      operationId: get-user
+      security:
+        - tokenAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/User'
+  # "/user/{firebaseUid}":
   #   put:
   #     tags:
   #       - user
@@ -78,25 +91,6 @@ paths:
   #         description: Successful operation
   #         schema:
   #           $ref: '#/definitions/IDResponse'
-    get:
-      tags:
-        - user
-      summary: "ユーザー情報取得"
-      description: "idを利用してユーザー情報を取得します"
-      operationId: get-user
-      security:
-        - tokenAuth: []
-      parameters:
-        - type: string
-          in: path
-          name: firebaseUid
-          required: true
-          description: "firebase uid"
-      responses:
-        '200':
-          description: Successful operation
-          schema:
-            $ref: '#/definitions/User'
 definitions:
   UserList:
     type: array

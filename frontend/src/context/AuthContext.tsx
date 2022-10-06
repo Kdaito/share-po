@@ -1,15 +1,20 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import React from 'react';
 import { auth } from '../api/firebase';
+import { signInWithGoogle } from '../api/firebase/auth';
 
 export const AuthContext = React.createContext<{
   initialized: boolean;
   token: string;
   firebaseUser: FirebaseUser | null;
+  handleSignInWithGoogle: () => Promise<void>;
 }>({
   initialized: false,
   token: '',
-  firebaseUser: null
+  firebaseUser: null,
+  handleSignInWithGoogle: () => {
+    throw new Error('failed sign in with google');
+  }
 });
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -40,20 +45,31 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (firebaseUser) {
         const newToken = await firebaseUser.getIdToken();
         setToken(newToken);
-        console.log(`Bearer ${newToken}`);
       }
     };
 
     f()
       .catch(() => console.error('tokenの取得に失敗したわ'))
       .finally(() => {
-        console.log('認証処理終わり');
         setInitialized(true);
       });
   }, [firebaseUser, initializedFirebaseUser]);
 
+  // 認証情報作成処理
+  const handleSignInWithGoogle = React.useCallback(async () => {
+    setInitialized(false);
+    setInitializedFirebaseUser(false);
+    await signInWithGoogle((user) => {
+      setFirebaseUser(user);
+      setInitializedFirebaseUser(true);
+      // 認証第二段階へ
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ initialized, firebaseUser, token }}>
+    <AuthContext.Provider
+      value={{ initialized, firebaseUser, token, handleSignInWithGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );

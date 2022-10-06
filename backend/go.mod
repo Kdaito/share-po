@@ -9,7 +9,6 @@ require (
 	github.com/go-openapi/swag v0.22.3
 	github.com/go-openapi/validate v0.22.0
 	github.com/gorilla/mux v1.8.0
-	github.com/jmoiron/sqlx v1.3.5
 	github.com/rs/cors v1.8.2
 	google.golang.org/api v0.73.0
 	gorm.io/driver/postgres v1.3.10

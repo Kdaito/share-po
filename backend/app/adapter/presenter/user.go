@@ -7,6 +7,7 @@ import (
 	"github.com/Kdaito/share-po/app/entity"
 	"github.com/Kdaito/share-po/app/usecase/port"
 	"github.com/Kdaito/share-po/gen/models"
+	"github.com/go-openapi/strfmt"
 )
 
 type User struct {
@@ -25,6 +26,7 @@ func (u *User) Render(user *entity.User) {
 		FirebaseUID: user.FirebaseUID,
 		Name:        user.Name,
 		Email:       user.Email,
+		CreatedAt:   strfmt.DateTime(user.CreatedAt),
 	}
 	// レスポンス用にbyte配列に変える
 	res, err := json.Marshal(result)

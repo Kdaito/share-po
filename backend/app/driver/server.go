@@ -43,14 +43,15 @@ func (s *Server) Init(databaseSource string) error {
 		log.Fatalf("error initializing firebase authentication: %v\n", err)
 	}
 	s.authClient = client
-	s.router = s.Route()
-
+	
 	// db接続
 	db, err := gorm.Open(postgres.Open(databaseSource), &gorm.Config{})
 	if err != nil {
 		return fmt.Errorf("failed db init: %s", err)
 	}
 	s.db = db
+
+	s.router = s.Route()
 	return nil
 }
 
@@ -82,7 +83,7 @@ func (s *Server) Route() *mux.Router {
 	// r.Use(authMiddleware.Handler)
 
 	// user
-	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db)
+	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db, s.authClient)
 
 	v1 := r.PathPrefix("/v1").Subrouter()
 
@@ -90,7 +91,7 @@ func (s *Server) Route() *mux.Router {
 	authRoute.Use(authMiddleware.Handler)
 
 	authRoute.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost, http.MethodOptions)
-	authRoute.HandleFunc("/user/{firebaseUid}", user.GetUserByUid).Methods(http.MethodGet, http.MethodOptions)
+	authRoute.HandleFunc("/user", user.GetUser).Methods(http.MethodGet, http.MethodOptions)
 
 	// commonRoute := v1.NewRoute().Subrouter()
 

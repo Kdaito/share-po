@@ -1,15 +1,11 @@
+import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
-import { signInWithGoogle } from '../../api/firebase/auth';
 import SignInImage from '../../assets/signIn.png';
+import { AuthContext } from '../../context/AuthContext';
 
 const SignIn: React.FC = () => {
-  const handleSignInWithGoogle = React.useCallback(async () => {
-    await signInWithGoogle((uid) => {
-      console.log(uid);
-    });
-  }, []);
+  const { handleSignInWithGoogle } = React.useContext(AuthContext);
   return (
     <Box
       sx={{
