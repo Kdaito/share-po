@@ -123,7 +123,7 @@ definitions:
       id:
         type: integer
         format: int64
-      name:
+      text:
         type: string
   PortfolioStatusList:
     type: array
@@ -135,7 +135,7 @@ definitions:
       id:
         type: integer
         format: int64
-      name:
+      text:
         type: string
   IDResponse:
     type: object
