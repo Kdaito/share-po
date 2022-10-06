@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: share-po
   description: "ポートフォリオを共有、評価できるサイトです"
@@ -19,19 +19,13 @@ securityDefinitions:
 tags:
   - name: user
     description: "ユーザーについて"
+  - name: portfolio
+    description: "ポートフォリオについて"
+  - name: portfolio-tag
+    description: "ポートフォリオのタグについて"
+  - name: portfolio-status
+    description: "ポートフォリオのステータスについて"
 paths:
-  # /users:
-  #   get:
-  #     tags:
-  #       - user
-  #     summary: "選手全件取得"
-  #     description: "全ての選手情報を取得します"
-  #     operationId: index-players
-  #     responses:
-  #       '200':
-  #         description: Successful operation
-  #         schema:
-  #           $ref: '#/definitions/PlayerList'
   /user:
     post:
       tags:
@@ -42,17 +36,17 @@ paths:
       security:
         - tokenAuth: []
       parameters:
-      - name: body
-        in: body
-        required: true
-        description: 'ユーザー新規登録の際のbody'
-        schema:
-          $ref: '#/definitions/UserRequest'
+        - name: body
+          in: body
+          required: true
+          description: "ユーザー新規登録の際のbody"
+          schema:
+            $ref: "#/definitions/UserRequest"
       responses:
-        '200':
-            description: Successful operation
-            schema:
-              $ref: '#/definitions/User'
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/User"
     get:
       tags:
         - user
@@ -62,40 +56,39 @@ paths:
       security:
         - tokenAuth: []
       responses:
-        '200':
+        "200":
           description: Successful operation
           schema:
-            $ref: '#/definitions/User'
-  # "/user/{firebaseUid}":
-  #   put:
-  #     tags:
-  #       - user
-  #     summary: "選手情報更新"
-  #     description: "選手情報をidを利用して更新します"
-  #     operationId: update-user
-  #     parameters:
-  #       - type: integer
-  #         format: int64
-  #         in: path
-  #         name: id
-  #         required: true
-  #         description: "選手のid"
-  #       - name: body
-  #         in: body
-  #         required: true
-  #         description: "更新する選手の情報を入力してください"
-  #         schema:
-  #           $ref: '#/definitions/UserRequest'
-  #     responses:
-  #       '200':
-  #         description: Successful operation
-  #         schema:
-  #           $ref: '#/definitions/IDResponse'
+            $ref: "#/definitions/User"
+  /portfolio-tags:
+    get:
+      tags:
+        - portfolio-tag
+      summary: "ポートフォリオタグ取得"
+      description: "ポートフォリオに設定できるタグを一覧で取得します"
+      operationId: get-portfolio-tag-list
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/PortfolioTagList"
+  /portfolio-statuses:
+    get:
+      tags:
+        - portfolio-status
+      summary: "ポートフォリオステータス取得"
+      description: "ポートフォリオに設定できるステータスを一覧で取得します"
+      operationId: get-portfolio-status-list
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/PortfolioStatusList"
 definitions:
   UserList:
     type: array
     items:
-      $ref: '#/definitions/User'
+      $ref: "#/definitions/User"
   User:
     type: object
     properties:
@@ -119,6 +112,30 @@ definitions:
       name:
         type: string
       email:
+        type: string
+  PortfolioTagList:
+    type: array
+    items:
+      $ref: "#/definitions/PortfolioTag"
+  PortfolioTag:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  PortfolioStatusList:
+    type: array
+    items:
+      $ref: "#/definitions/PortfolioStatus"
+  PortfolioStatus:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
         type: string
   IDResponse:
     type: object
