@@ -14,7 +14,7 @@ func main() {
 	
 	db, err := gorm.Open(postgres.Open(dbSource), &gorm.Config{})
 	if err != nil {
-		log.Printf("failed db init: %s", err)
+		log.Printf("failed db init for migration: %s", err)
 	}
-	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.User{}, &entity.PortfolioTag{}, &entity.PortfolioStatus{})
 }

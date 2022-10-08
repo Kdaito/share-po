@@ -36,3 +36,7 @@ db-init:
 .PHONY: db-migration
 db-migration:
 	docker-compose exec backend go run cmd/migration/main.go
+
+.PHONY: db-seed
+db-seed:
+	docker-compose exec backend go run cmd/seeder/main.go
