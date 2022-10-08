@@ -3,11 +3,11 @@ package cmd
 import "fmt"
 
 const (
-	dbUser = "root"
+	dbUser     = "root"
 	dbPassword = "p@ssw0rd"
-	dockerDns = "db"
-	dbPort = "5432"
-	dbName = "share_po"
+	dockerDns  = "db"
+	dbPort     = "5432"
+	dbName     = "share_po"
 )
 
 func GenerateDbSource() string {

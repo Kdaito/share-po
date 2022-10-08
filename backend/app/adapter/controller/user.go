@@ -19,7 +19,7 @@ type UserController struct {
 	inputFactory      InputFactory
 	repositoryFactory RepositoryFactory
 	conn              *gorm.DB
-	authClient            *auth.Client
+	authClient        *auth.Client
 }
 
 func NewUserController(outputFactory OutputFactory, inputFactory InputFactory, repositoryFactory RepositoryFactory, conn *gorm.DB, authClient *auth.Client) *UserController {

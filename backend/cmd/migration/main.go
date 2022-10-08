@@ -11,7 +11,7 @@ import (
 
 func main() {
 	dbSource := cmd.GenerateDbSource()
-	
+
 	db, err := gorm.Open(postgres.Open(dbSource), &gorm.Config{})
 	if err != nil {
 		log.Printf("failed db init for migration: %s", err)

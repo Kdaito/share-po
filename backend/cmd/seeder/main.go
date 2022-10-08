@@ -4,14 +4,14 @@ import (
 	"log"
 
 	"github.com/Kdaito/share-po/cmd"
-	"github.com/Kdaito/share-po/cmd/seeder/seeds"
+	// "github.com/Kdaito/share-po/cmd/seeder/seeds"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func main() {
 	dbSource := cmd.GenerateDbSource()
-	
+
 	_, err := gorm.Open(postgres.Open(dbSource), &gorm.Config{})
 	if err != nil {
 		log.Printf("failed db init for seeder: %s", err)

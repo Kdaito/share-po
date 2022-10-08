@@ -43,7 +43,7 @@ func (s *Server) Init(databaseSource string) error {
 		log.Fatalf("error initializing firebase authentication: %v\n", err)
 	}
 	s.authClient = client
-	
+
 	// db接続
 	db, err := gorm.Open(postgres.Open(databaseSource), &gorm.Config{})
 	if err != nil {

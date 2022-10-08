@@ -1,8 +1,8 @@
 package seeds
 
 import (
-	"gorm.io/gorm"
 	"github.com/Kdaito/share-po/app/entity"
+	"gorm.io/gorm"
 )
 
 func CreatePortfolioTag(db *gorm.DB, text string) error {
