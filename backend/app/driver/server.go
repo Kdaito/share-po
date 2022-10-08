@@ -85,15 +85,22 @@ func (s *Server) Route() *mux.Router {
 	// user
 	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db, s.authClient)
 
+	// portfolio tag
+	portfolioTag := controller.NewPortfolioTagController(presenter.NewPortfolioTagOutputPort, interactor.NewPortfolioTagInputPort, gateway.NewPortfolioTagRepository, s.db)
+
+	// portfolio status
+	portfolioStatus := controller.NewPortfolioStatusController(presenter.NewPortfolioStatusOutputPort, interactor.NewPortfolioStatusInputPort, gateway.NewPortfolioStatusRepository, s.db)
+
 	v1 := r.PathPrefix("/v1").Subrouter()
 
+	commonRoute := v1.NewRoute().Subrouter()
 	authRoute := v1.NewRoute().Subrouter()
 	authRoute.Use(authMiddleware.Handler)
 
-	authRoute.HandleFunc("/user", user.CreateUser).Methods(http.MethodPost, http.MethodOptions)
 	authRoute.HandleFunc("/user", user.GetUser).Methods(http.MethodGet, http.MethodOptions)
 
-	// commonRoute := v1.NewRoute().Subrouter()
+	commonRoute.HandleFunc("/portfolio-tags", portfolioTag.GetPortfolioTags).Methods(http.MethodGet, http.MethodOptions)
+	commonRoute.HandleFunc("/portfolio-statuses", portfolioStatus.GetPortfolioStatuses).Methods(http.MethodGet, http.MethodOptions)
 
 	return r
 }

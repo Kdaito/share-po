@@ -10,19 +10,19 @@ import (
 	"gorm.io/gorm"
 )
 
-type OutputFactory func(w http.ResponseWriter) port.UserOutputPort
-type InputFactory func(o port.UserOutputPort, r port.UserRepository, authClient *auth.Client) port.UserInputPort
-type RepositoryFactory func(c *gorm.DB, authClient *auth.Client) port.UserRepository
+type UserOutputFactory func(w http.ResponseWriter) port.UserOutputPort
+type UserInputFactory func(o port.UserOutputPort, r port.UserRepository, authClient *auth.Client) port.UserInputPort
+type UserRepositoryFactory func(c *gorm.DB, authClient *auth.Client) port.UserRepository
 
 type UserController struct {
-	outputFactory     OutputFactory
-	inputFactory      InputFactory
-	repositoryFactory RepositoryFactory
+	outputFactory     UserOutputFactory
+	inputFactory      UserInputFactory
+	repositoryFactory UserRepositoryFactory
 	conn              *gorm.DB
 	authClient        *auth.Client
 }
 
-func NewUserController(outputFactory OutputFactory, inputFactory InputFactory, repositoryFactory RepositoryFactory, conn *gorm.DB, authClient *auth.Client) *UserController {
+func NewUserController(outputFactory UserOutputFactory, inputFactory UserInputFactory, repositoryFactory UserRepositoryFactory, conn *gorm.DB, authClient *auth.Client) *UserController {
 	return &UserController{
 		outputFactory:     outputFactory,
 		inputFactory:      inputFactory,
