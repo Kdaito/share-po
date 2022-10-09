@@ -1,7 +1,11 @@
+apis/PortfolioStatusApi.ts
+apis/PortfolioTagApi.ts
 apis/UserApi.ts
 apis/index.ts
 index.ts
 models/IDResponse.ts
+models/PortfolioStatus.ts
+models/PortfolioTag.ts
 models/User.ts
 models/UserRequest.ts
 models/index.ts

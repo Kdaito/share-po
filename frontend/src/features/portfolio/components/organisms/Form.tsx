@@ -1,6 +1,17 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import MultipleSelect from '../../../../components/MultipleSelect';
+import { ChoiceContext } from '../../../../context/ChoiceContext';
 import { Portfolio } from '../../types';
 
 export type Props = {
@@ -8,7 +19,11 @@ export type Props = {
   defaultValue?: Portfolio;
 };
 
-const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
+const PortfolioForm: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
+  const { portfolioStatus, portfolioTag } = React.useContext(ChoiceContext);
+
+  const [tag, setTag] = React.useState<number[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -55,6 +70,32 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
             {...register('description', { required: true })}
           />
         </Grid>
+        <Grid item xs={3}>
+          <FormControl fullWidth>
+            <InputLabel id="portfolio-status">ステータス</InputLabel>
+            <Select
+              labelId="portfolio-status"
+              id="portfolio-status-select"
+              // value={age}
+              label="ステータス"
+              // onChange={handleChange}
+            >
+              {portfolioStatus.map((status) => (
+                <MenuItem key={status.id} value={status.id}>
+                  {status.text}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <MultipleSelect
+            id="portfolio-tag"
+            choices={portfolioTag}
+            value={tag}
+            setValue={setTag}
+          />
+        </Grid>
         <Grid item xs={12}></Grid>
         <Button type="submit" fullWidth variant="contained" disabled={!isValid}>
           確認する
@@ -64,4 +105,4 @@ const AddPortfolio: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
   );
 };
 
-export default AddPortfolio;
+export default PortfolioForm;

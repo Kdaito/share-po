@@ -9,6 +9,7 @@ import UserProvider from './context/UserContext';
 import AuthRoutes from './routes/AuthRoutes';
 import CommonRoutes from './routes/CommonRoutes';
 import ApiProvider from './context/ApiContext';
+import ChoiceProvider from './context/ChoiceContext';
 // import EditPlayer from "./pages/EditPlayer";
 
 function App() {
@@ -17,17 +18,19 @@ function App() {
       <AuthProvider>
         <ApiProvider>
           <UserProvider>
-            <Routes>
-              <Route path="/" element={<AuthRoutes />}>
-                <Route path="/" element={<PlayerList />} />
-                <Route path="/setting" element={<Setting />} />
-                <Route path="/add-player" element={<AddPortfolio />} />
-              </Route>
-              <Route path="/auth" element={<CommonRoutes />}>
-                <Route path="" element={<SignIn />} />
-              </Route>
-              {/* <Route path="/edit-player/:id" element={<EditPlayer />} /> */}
-            </Routes>
+            <ChoiceProvider>
+              <Routes>
+                <Route path="/" element={<AuthRoutes />}>
+                  <Route path="/" element={<PlayerList />} />
+                  <Route path="/setting" element={<Setting />} />
+                  <Route path="/add-player" element={<AddPortfolio />} />
+                </Route>
+                <Route path="/auth" element={<CommonRoutes />}>
+                  <Route path="" element={<SignIn />} />
+                </Route>
+                {/* <Route path="/edit-player/:id" element={<EditPlayer />} /> */}
+              </Routes>
+            </ChoiceProvider>
           </UserProvider>
         </ApiProvider>
       </AuthProvider>
