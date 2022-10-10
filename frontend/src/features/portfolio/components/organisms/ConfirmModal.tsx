@@ -2,10 +2,10 @@ import Modal from '../../../../components/Modal';
 import { Box } from '@mui/system';
 import React from 'react';
 import { Button, Typography } from '@mui/material';
-import { Portfolio } from '../../types';
+import { PortfolioForm } from '../../types';
 
 type Props = {
-  data: Portfolio;
+  data: PortfolioForm;
   isOpen: boolean;
   closeModal: () => void;
   handleConfirm: () => void;
@@ -19,7 +19,7 @@ const ConfirmModal: React.FC<Props> = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <Box sx={{ width: '500px' }}>
+      <Box sx={{ width: '650px', overflow: '' }}>
         <Typography sx={{ pb: '16px' }}>
           以下の内容で入力を完了します
         </Typography>
@@ -29,7 +29,7 @@ const ConfirmModal: React.FC<Props> = ({
           component="p"
           align="left"
         >
-          名前
+          作品名
         </Typography>
         <Typography gutterBottom variant="h5" component="p" align="left">
           {data.name}
@@ -40,9 +40,9 @@ const ConfirmModal: React.FC<Props> = ({
           component="p"
           align="left"
         >
-          選手情報
+          作品情報
         </Typography>
-        <Typography gutterBottom variant="h5" component="p" align="left">
+        <Typography gutterBottom variant="body2" sx={{ overflowWrap: 'break-word' }}>
           {data.description}
         </Typography>
         <Button

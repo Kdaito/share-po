@@ -14,12 +14,13 @@ type Choice = {
 
 type Props = {
   id: string;
+  label: string;
   choices: Choice[];
   value: number[];
   setValue: (newValue: number[]) => void;
 };
 
-const MultipleSelect: React.FC<Props> = ({ id, choices, value, setValue }) => {
+const MultipleSelect: React.FC<Props> = ({ id, label, choices, value, setValue }) => {
   const handleChange = (event: SelectChangeEvent<number[]>) => {
     const {
       target: { value }
@@ -41,7 +42,7 @@ const MultipleSelect: React.FC<Props> = ({ id, choices, value, setValue }) => {
   return (
     <div>
       <FormControl fullWidth>
-        <InputLabel id={labelId}>Chip</InputLabel>
+        <InputLabel id={labelId}>{label}</InputLabel>
         <Select
           labelId={labelId}
           id={id}
@@ -52,13 +53,13 @@ const MultipleSelect: React.FC<Props> = ({ id, choices, value, setValue }) => {
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={getValue(value)} />
               ))}
             </Box>
           )}
         >
           {choices.map((choice) => (
-            <MenuItem key={choice.id} value={getValue(choice.id)}>
+            <MenuItem key={choice.id} value={choice.id}>
               {choice.text}
             </MenuItem>
           ))}

@@ -8,36 +8,55 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import MultipleSelect from '../../../../components/MultipleSelect';
 import { ChoiceContext } from '../../../../context/ChoiceContext';
-import { Portfolio } from '../../types';
+import { PortfolioForm as PortfolioFormType } from '../../types';
+import { portfolioSchema } from '../../validation';
+import { UserContext } from '../../../../context/UserContext';
 
 export type Props = {
-  onClickSubmit: (value: Portfolio) => void;
-  defaultValue?: Portfolio;
+  onClickSubmit: (value: PortfolioFormType) => void;
+  defaultValue?: PortfolioFormType;
 };
 
 const PortfolioForm: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
   const { portfolioStatus, portfolioTag } = React.useContext(ChoiceContext);
+  const { user } = React.useContext(UserContext);
 
-  const [tag, setTag] = React.useState<number[]>([]);
+  const defaultFormValue: PortfolioFormType = React.useMemo(() => {
+    if (!defaultValue)
+      return {
+        name: '',
+        description: '',
+        status: 1,
+        userId: user.id as number,
+        tags: [],
+        gitHubLink: '',
+        shareLink: ''
+      };
+    return defaultValue;
+  }, [defaultValue, user]);
 
   const {
     register,
     handleSubmit,
-    formState: { isValid }
-  } = useForm<Portfolio>({
+    control,
+    reset,
+    formState: { errors }
+  } = useForm<PortfolioFormType>({
     mode: 'onChange',
-    defaultValues: defaultValue || {
-      name: '',
-      description: '',
-      createdAt: null
-    }
+    resolver: yupResolver(portfolioSchema),
+    defaultValues: defaultFormValue
   });
 
-  const onSubmit: SubmitHandler<Portfolio> = (data) => {
+  useEffect(() => {
+    reset(defaultFormValue);
+  }, [reset, defaultFormValue]);
+
+  const onSubmit: SubmitHandler<PortfolioFormType> = (data) => {
     onClickSubmit(data);
   };
 
@@ -49,55 +68,92 @@ const PortfolioForm: React.FC<Props> = ({ onClickSubmit, defaultValue }) => {
       <Grid
         container
         component="form"
-        gap={2}
+        gap={3}
+        sx={{ pb: 8 }}
         onSubmit={handleSubmit(onSubmit)}
       >
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="Portfolio-name"
+            id="portfolio-name"
             label="作品名"
-            {...register('name', { required: true })}
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            {...register('name')}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="Portfolio-memo"
+            id="portfolio-description"
             label="作品情報"
             multiline
             rows={6}
-            {...register('description', { required: true })}
+            error={!!errors.description}
+            helperText={errors.description?.message}
+            {...register('description')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="portfolio-link"
+                label="共有リンク"
+                {...register('shareLink')}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="portfolio-git-link"
+                label="GitHubリンク"
+                {...register('gitHubLink')}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field: { onChange, value } }) => (
+              <MultipleSelect
+                id="portfolio-tag"
+                label="タグ"
+                choices={portfolioTag}
+                value={value}
+                setValue={onChange}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={3}>
           <FormControl fullWidth>
             <InputLabel id="portfolio-status">ステータス</InputLabel>
-            <Select
-              labelId="portfolio-status"
-              id="portfolio-status-select"
-              // value={age}
-              label="ステータス"
-              // onChange={handleChange}
-            >
-              {portfolioStatus.map((status) => (
-                <MenuItem key={status.id} value={status.id}>
-                  {status.text}
-                </MenuItem>
-              ))}
-            </Select>
+            <Controller
+              control={control}
+              name="status"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  labelId="portfolio-status"
+                  id="portfolio-status-select"
+                  value={value}
+                  label="ステータス"
+                  onChange={onChange}
+                >
+                  {portfolioStatus.map((status) => (
+                    <MenuItem key={status.id} value={status.id}>
+                      {status.text}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
-          <MultipleSelect
-            id="portfolio-tag"
-            choices={portfolioTag}
-            value={tag}
-            setValue={setTag}
-          />
-        </Grid>
-        <Grid item xs={12}></Grid>
-        <Button type="submit" fullWidth variant="contained" disabled={!isValid}>
+        <Button type="submit" sx={{ mt: 2 }} fullWidth variant="contained">
           確認する
         </Button>
       </Grid>

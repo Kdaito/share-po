@@ -1,5 +1,9 @@
-export type Portfolio = {
+export type PortfolioForm = {
   name: string;
+  userId: number;
   description: string;
-  createdAt: number | null;
+  status: number | null;
+  tags: number[];
+  gitHubLink: string;
+  shareLink: string;
 };
