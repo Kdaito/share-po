@@ -16,5 +16,5 @@ func main() {
 	if err != nil {
 		log.Printf("failed db init for migration: %s", err)
 	}
-	db.AutoMigrate(&entity.User{}, &entity.PortfolioTag{}, &entity.PortfolioStatus{})
+	db.AutoMigrate(&entity.User{}, &entity.PortfolioTag{}, &entity.PortfolioStatus{}, &entity.Portfolio{})
 }
