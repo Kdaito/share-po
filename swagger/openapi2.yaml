@@ -60,6 +60,27 @@ paths:
           description: Successful operation
           schema:
             $ref: "#/definitions/User"
+  /portfolio:
+    post:
+      tags:
+        - portfolio
+      summary: "ポートフォリオ新規作成"
+      description: "ポートフォリオを新規作成します"
+      operationId: create-portfolio
+      security:
+        - tokenAuth: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: "ポートフォリオ新規登録の際のbody"
+          schema:
+            $ref: "#/definitions/PortfolioRequest"
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/IDResponse"
   /portfolio-tags:
     get:
       tags:
@@ -112,6 +133,26 @@ definitions:
       name:
         type: string
       email:
+        type: string
+  PortfolioRequest:
+    type: object
+    properties:
+      name:
+        type: string
+      userId:
+        type: integer
+        format: int64
+      description:
+        type: string
+      status:
+        type: number
+      tags:
+        type: array
+        items:
+          type: integer
+      githubLink:
+        type: string
+      shareLink:
         type: string
   PortfolioTagList:
     type: array

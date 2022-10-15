@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './IDResponse';
+export * from './PortfolioRequest';
 export * from './PortfolioStatus';
 export * from './PortfolioTag';
 export * from './User';

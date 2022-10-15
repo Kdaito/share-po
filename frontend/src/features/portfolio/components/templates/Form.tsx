@@ -1,11 +1,11 @@
 import React from 'react';
-import { Portfolio } from '../../types';
+import { PortfolioForm } from '../../types';
 import FormOrganism from '../organisms/Form';
 import ConfirmModal from '../organisms/ConfirmModal';
 
 type Props = {
-  data: Portfolio | undefined;
-  setData: (data: Portfolio | undefined) => void;
+  data: PortfolioForm | undefined;
+  setData: (data: PortfolioForm | undefined) => void;
   onClickConfirm: () => void;
 };
 
@@ -18,7 +18,7 @@ const Form: React.FC<Props> = ({ data, setData, onClickConfirm }) => {
   }, [setIsOpen, onClickConfirm]);
 
   const onClickSubmit = React.useCallback(
-    (submittedData: Portfolio) => {
+    (submittedData: PortfolioForm) => {
       setData(submittedData);
       setIsOpen(true);
     },
