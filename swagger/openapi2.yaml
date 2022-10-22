@@ -61,6 +61,19 @@ paths:
           schema:
             $ref: "#/definitions/User"
   /portfolio:
+    get:
+      tags:
+        - portfolio
+      summary: "ポートフォリオ一覧取得"
+      description: "ポートフォリオを一覧として取得します"
+      operationId: get-portfolio-list
+      security:
+        - tokenAuth: []
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/PortfolioList"
     post:
       tags:
         - portfolio
@@ -133,6 +146,34 @@ definitions:
       name:
         type: string
       email:
+        type: string
+  PortfolioList:
+    type: array
+    items:
+      $ref: "#/definitions/Portfolio"
+  Portfolio:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      user:
+        $ref: "#/definitions/User"
+      description:
+        type: string
+      status:
+        type: integer
+        format: int64
+      tags:
+        type: array
+        items:
+          type: integer
+          format: int64
+      githubLink:
+        type: string
+      shareLink:
         type: string
   PortfolioRequest:
     type: object
