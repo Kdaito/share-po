@@ -17,28 +17,18 @@ import (
 // PortfolioList portfolio list
 //
 // swagger:model PortfolioList
-type PortfolioList []*Portfolio
+type PortfolioList struct {
+
+	// portfolios
+	Portfolios []*Portfolio `json:"portfolios"`
+}
 
 // Validate validates this portfolio list
-func (m PortfolioList) Validate(formats strfmt.Registry) error {
+func (m *PortfolioList) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	for i := 0; i < len(m); i++ {
-		if swag.IsZero(m[i]) { // not required
-			continue
-		}
-
-		if m[i] != nil {
-			if err := m[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName(strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName(strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
+	if err := m.validatePortfolios(formats); err != nil {
+		res = append(res, err)
 	}
 
 	if len(res) > 0 {
@@ -47,18 +37,22 @@ func (m PortfolioList) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this portfolio list based on the context it is used
-func (m PortfolioList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
+func (m *PortfolioList) validatePortfolios(formats strfmt.Registry) error {
+	if swag.IsZero(m.Portfolios) { // not required
+		return nil
+	}
 
-	for i := 0; i < len(m); i++ {
+	for i := 0; i < len(m.Portfolios); i++ {
+		if swag.IsZero(m.Portfolios[i]) { // not required
+			continue
+		}
 
-		if m[i] != nil {
-			if err := m[i].ContextValidate(ctx, formats); err != nil {
+		if m.Portfolios[i] != nil {
+			if err := m.Portfolios[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName(strconv.Itoa(i))
+					return ve.ValidateName("portfolios" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName(strconv.Itoa(i))
+					return ce.ValidateName("portfolios" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -66,8 +60,57 @@ func (m PortfolioList) ContextValidate(ctx context.Context, formats strfmt.Regis
 
 	}
 
+	return nil
+}
+
+// ContextValidate validate this portfolio list based on the context it is used
+func (m *PortfolioList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePortfolios(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PortfolioList) contextValidatePortfolios(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Portfolios); i++ {
+
+		if m.Portfolios[i] != nil {
+			if err := m.Portfolios[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("portfolios" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("portfolios" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PortfolioList) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PortfolioList) UnmarshalBinary(b []byte) error {
+	var res PortfolioList
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

@@ -19,11 +19,20 @@ func NewPortfolioInputPort(outputPort port.PortfolioOutputPort, repository port.
 	}
 }
 
+func (p *Portfolio) Index(ctx context.Context) {
+	res, err := p.repository.Index(ctx)
+	if err != nil {
+		p.outputPort.RenderError(err)
+		return
+	}
+	p.outputPort.RenderIndex(res)
+}
+
 func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioRequest) {
 	res, err := p.repository.Create(ctx, portfolio)
 	if err != nil {
 		p.outputPort.RenderError(err)
 		return
 	}
-	p.outputPort.Render(res)
+	p.outputPort.RenderCreate(res)
 }

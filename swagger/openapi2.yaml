@@ -119,10 +119,6 @@ paths:
           schema:
             $ref: "#/definitions/PortfolioStatusList"
 definitions:
-  UserList:
-    type: array
-    items:
-      $ref: "#/definitions/User"
   User:
     type: object
     properties:
@@ -148,9 +144,12 @@ definitions:
       email:
         type: string
   PortfolioList:
-    type: array
-    items:
-      $ref: "#/definitions/Portfolio"
+    type: object
+    properties:
+      portfolios:
+        type: array
+        items:
+          $ref: "#/definitions/Portfolio"
   Portfolio:
     type: object
     properties:

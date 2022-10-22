@@ -8,23 +8,23 @@ import (
 	"gorm.io/gorm"
 )
 
-type PortfolioOutputFactory func (w http.ResponseWriter) port.PortfolioOutputPort
-type PortfolioInputFactory func (o port.PortfolioOutputPort, r port.PortfolioRepository) port.PortfolioInputPort
-type PortfolioRepositoryFactory func (c *gorm.DB) port.PortfolioRepository
+type PortfolioOutputFactory func(w http.ResponseWriter) port.PortfolioOutputPort
+type PortfolioInputFactory func(o port.PortfolioOutputPort, r port.PortfolioRepository) port.PortfolioInputPort
+type PortfolioRepositoryFactory func(c *gorm.DB) port.PortfolioRepository
 
 type PortfolioController struct {
-	outputFactory PortfolioOutputFactory
-	inputFactory PortfolioInputFactory
+	outputFactory     PortfolioOutputFactory
+	inputFactory      PortfolioInputFactory
 	repositoryFactory PortfolioRepositoryFactory
-	conn *gorm.DB
+	conn              *gorm.DB
 }
 
 func NewPortfolioController(outputFactory PortfolioOutputFactory, inputFactory PortfolioInputFactory, repositoryFactory PortfolioRepositoryFactory, conn *gorm.DB) *PortfolioController {
 	return &PortfolioController{
-		outputFactory: outputFactory,
-		inputFactory: inputFactory,
+		outputFactory:     outputFactory,
+		inputFactory:      inputFactory,
 		repositoryFactory: repositoryFactory,
-		conn: conn,
+		conn:              conn,
 	}
 }
 
@@ -32,6 +32,11 @@ func (p *PortfolioController) newInputPort(w http.ResponseWriter) port.Portfolio
 	outputPort := p.outputFactory(w)
 	repository := p.repositoryFactory(p.conn)
 	return p.inputFactory(outputPort, repository)
+}
+
+func (p *PortfolioController) Index(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	p.newInputPort(w).Index(ctx)
 }
 
 func (p *PortfolioController) Create(w http.ResponseWriter, r *http.Request) {

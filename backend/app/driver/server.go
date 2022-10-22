@@ -102,6 +102,7 @@ func (s *Server) Route() *mux.Router {
 
 	authRoute.HandleFunc("/user", user.Get).Methods(http.MethodGet, http.MethodOptions)
 	authRoute.HandleFunc("/portfolio", portfolio.Create).Methods(http.MethodPost, http.MethodOptions)
+	authRoute.HandleFunc("/portfolio", portfolio.Index).Methods(http.MethodGet, http.MethodOptions)
 	commonRoute.HandleFunc("/portfolio-tags", portfolioTag.Index).Methods(http.MethodGet, http.MethodOptions)
 	commonRoute.HandleFunc("/portfolio-statuses", portfolioStatus.Index).Methods(http.MethodGet, http.MethodOptions)
 

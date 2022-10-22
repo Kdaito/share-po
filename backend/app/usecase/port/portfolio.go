@@ -8,14 +8,17 @@ import (
 )
 
 type PortfolioInputPort interface {
+	Index(ctx context.Context)
 	Create(ctx context.Context, portfolio *models.PortfolioRequest)
 }
 
 type PortfolioOutputPort interface {
-	Render(*entity.Portfolio)
+	RenderCreate(*entity.Portfolio)
+	RenderIndex(*models.PortfolioList)
 	RenderError(error)
 }
 
 type PortfolioRepository interface {
+	Index(ctx context.Context) (*models.PortfolioList, error)
 	Create(ctx context.Context, portfolio *models.PortfolioRequest) (*entity.Portfolio, error)
 }

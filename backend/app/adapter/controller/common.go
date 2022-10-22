@@ -13,7 +13,7 @@ type requestModel interface {
 }
 
 func parseModelFromRequest(r *http.Request, model requestModel) error {
-	body, err := ioutil.ReadAll(r.Body);
+	body, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
 		return err

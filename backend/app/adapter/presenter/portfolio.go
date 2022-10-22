@@ -19,18 +19,24 @@ func NewPortfolioOutputPort(w http.ResponseWriter) port.PortfolioOutputPort {
 	}
 }
 
-func (p *Portfolio) Render(portfolio *entity.Portfolio) {
+func (p *Portfolio) RenderIndex(portfolios *models.PortfolioList) {
+	res, err := json.Marshal(portfolios)
+	if err != nil {
+		p.RenderError(err)
+	}
+
 	p.w.WriteHeader(http.StatusOK)
+	p.w.Write(res)
+}
+
+func (p *Portfolio) RenderCreate(portfolio *entity.Portfolio) {
 	result := &models.IDResponse{
 		ID: int64(portfolio.ID),
 	}
-	// レスポンス用にbyte配列に変える
 	res, err := json.Marshal(result)
 
 	if err != nil {
-		p.w.WriteHeader(http.StatusInternalServerError)
-		p.w.Write([]byte(err.Error()))
-		return
+		p.RenderError(err)
 	}
 
 	p.w.WriteHeader(http.StatusOK)
@@ -40,4 +46,5 @@ func (p *Portfolio) Render(portfolio *entity.Portfolio) {
 func (p *Portfolio) RenderError(err error) {
 	p.w.WriteHeader(http.StatusInternalServerError)
 	p.w.Write([]byte(err.Error()))
+	return
 }
