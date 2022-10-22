@@ -18,8 +18,8 @@ func NewPortfolioTagInputPort(outputPort port.PortfolioTagOutputPort, repository
 	}
 }
 
-func (p *PortfolioTag) GetPortfolioTags(ctx context.Context) {
-	portfolioTags, error := p.repository.GetPortfolioTags(ctx)
+func (p *PortfolioTag) Index(ctx context.Context) {
+	portfolioTags, error := p.repository.Index(ctx)
 	if error != nil {
 		p.outputPort.RenderError(error)
 		return

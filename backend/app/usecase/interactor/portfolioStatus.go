@@ -18,8 +18,8 @@ func NewPortfolioStatusInputPort(outputPort port.PortfolioStatusOutputPort, repo
 	}
 }
 
-func (p *PortfolioStatus) GetPortfolioStatuses(ctx context.Context) {
-	portfolioStatues, error := p.repository.GetPortfolioStatuses(ctx)
+func (p *PortfolioStatus) Index(ctx context.Context) {
+	portfolioStatues, error := p.repository.Index(ctx)
 	if error != nil {
 		p.outputPort.RenderError(error)
 		return

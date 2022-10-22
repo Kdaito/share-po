@@ -8,7 +8,7 @@ import (
 )
 
 type PortfolioInputPort interface {
-	CreatePortfolio(ctx context.Context, portfolio *models.PortfolioRequest)
+	Create(ctx context.Context, portfolio *models.PortfolioRequest)
 }
 
 type PortfolioOutputPort interface {
@@ -17,5 +17,5 @@ type PortfolioOutputPort interface {
 }
 
 type PortfolioRepository interface {
-	CreatePortfolio(ctx context.Context, portfolio *models.PortfolioRequest) (*entity.Portfolio, error)
+	Create(ctx context.Context, portfolio *models.PortfolioRequest) (*entity.Portfolio, error)
 }

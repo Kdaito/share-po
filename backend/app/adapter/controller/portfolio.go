@@ -34,12 +34,12 @@ func (p *PortfolioController) newInputPort(w http.ResponseWriter) port.Portfolio
 	return p.inputFactory(outputPort, repository)
 }
 
-func (p *PortfolioController) CreatePortfolio(w http.ResponseWriter, r *http.Request) {
+func (p *PortfolioController) Create(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	var req models.PortfolioRequest
 	if err := parseModelFromRequest(r, &req); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 	}
-	p.newInputPort(w).CreatePortfolio(ctx, &req)
+	p.newInputPort(w).Create(ctx, &req)
 }

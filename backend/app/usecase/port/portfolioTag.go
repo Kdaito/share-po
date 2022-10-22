@@ -7,7 +7,7 @@ import (
 )
 
 type PortfolioTagInputPort interface {
-	GetPortfolioTags(ctx context.Context)
+	Index(ctx context.Context)
 }
 
 type PortfolioTagOutputPort interface {
@@ -16,5 +16,5 @@ type PortfolioTagOutputPort interface {
 }
 
 type PortfolioTagRepository interface {
-	GetPortfolioTags(ctx context.Context) ([]*entity.PortfolioTag, error)
+	Index(ctx context.Context) ([]*entity.PortfolioTag, error)
 }

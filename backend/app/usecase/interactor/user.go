@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"firebase.google.com/go/auth"
-	"github.com/Kdaito/share-po/app/entity"
 	"github.com/Kdaito/share-po/app/usecase/port"
 )
 
@@ -22,17 +21,8 @@ func NewUserInputPort(outputPort port.UserOutputPort, repository port.UserReposi
 	}
 }
 
-func (u *User) CreateUser(ctx context.Context, user *entity.User) {
-	user, error := u.repository.CreateUser(ctx, user)
-	if error != nil {
-		u.OutputPort.RenderError(error)
-		return
-	}
-	u.OutputPort.Render(user)
-}
-
-func (u *User) GetUser(ctx context.Context) {
-	user, error := u.repository.GetUser(ctx)
+func (u *User) Get(ctx context.Context) {
+	user, error := u.repository.Get(ctx)
 	if error != nil {
 		u.OutputPort.RenderError(error)
 		return

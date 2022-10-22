@@ -18,7 +18,7 @@ func NewPortfolioTagRepository(conn *gorm.DB) port.PortfolioTagRepository {
 	}
 }
 
-func (p *PortfolioTagRepository) GetPortfolioTags(ctx context.Context) ([]*entity.PortfolioTag, error) {
+func (p *PortfolioTagRepository) Index(ctx context.Context) ([]*entity.PortfolioTag, error) {
 	var portfolioTags []*entity.PortfolioTag
 	if err := p.conn.Find(&portfolioTags).Error; err != nil {
 		return nil, err

@@ -33,7 +33,7 @@ func (p *PortfolioTagController) newInputPort(w http.ResponseWriter) port.Portfo
 	return p.inputFactory(outputPort, repository)
 }
 
-func (p *PortfolioTagController) GetPortfolioTags(w http.ResponseWriter, r *http.Request) {
+func (p *PortfolioTagController) Index(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	p.newInputPort(w).GetPortfolioTags(ctx)
+	p.newInputPort(w).Index(ctx)
 }

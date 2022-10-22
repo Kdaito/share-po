@@ -19,8 +19,8 @@ func NewPortfolioInputPort(outputPort port.PortfolioOutputPort, repository port.
 	}
 }
 
-func (p *Portfolio) CreatePortfolio(ctx context.Context, portfolio *models.PortfolioRequest) {
-	res, err := p.repository.CreatePortfolio(ctx, portfolio)
+func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioRequest) {
+	res, err := p.repository.Create(ctx, portfolio)
 	if err != nil {
 		p.outputPort.RenderError(err)
 		return

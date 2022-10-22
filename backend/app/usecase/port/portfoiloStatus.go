@@ -7,7 +7,7 @@ import (
 )
 
 type PortfolioStatusInputPort interface {
-	GetPortfolioStatuses(ctx context.Context)
+	Index(ctx context.Context)
 }
 
 type PortfolioStatusOutputPort interface {
@@ -16,5 +16,5 @@ type PortfolioStatusOutputPort interface {
 }
 
 type PortfolioStatusRepository interface {
-	GetPortfolioStatuses(ctx context.Context) ([]*entity.PortfolioStatus, error)
+	Index(ctx context.Context) ([]*entity.PortfolioStatus, error)
 }

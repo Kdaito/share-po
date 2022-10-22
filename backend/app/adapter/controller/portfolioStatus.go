@@ -33,7 +33,7 @@ func (p *PortfolioStatusController) newInputPort(w http.ResponseWriter) port.Por
 	return p.inputFactory(outputPort, repository)
 }
 
-func (p *PortfolioStatusController) GetPortfolioStatuses(w http.ResponseWriter, r *http.Request) {
+func (p *PortfolioStatusController) Index(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	p.newInputPort(w).GetPortfolioStatuses(ctx)
+	p.newInputPort(w).Index(ctx)
 }

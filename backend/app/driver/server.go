@@ -100,10 +100,10 @@ func (s *Server) Route() *mux.Router {
 	authRoute := v1.NewRoute().Subrouter()
 	authRoute.Use(authMiddleware.Handler)
 
-	authRoute.HandleFunc("/user", user.GetUser).Methods(http.MethodGet, http.MethodOptions)
-	authRoute.HandleFunc("/portfolio", portfolio.CreatePortfolio).Methods(http.MethodPost, http.MethodOptions)
-	commonRoute.HandleFunc("/portfolio-tags", portfolioTag.GetPortfolioTags).Methods(http.MethodGet, http.MethodOptions)
-	commonRoute.HandleFunc("/portfolio-statuses", portfolioStatus.GetPortfolioStatuses).Methods(http.MethodGet, http.MethodOptions)
+	authRoute.HandleFunc("/user", user.Get).Methods(http.MethodGet, http.MethodOptions)
+	authRoute.HandleFunc("/portfolio", portfolio.Create).Methods(http.MethodPost, http.MethodOptions)
+	commonRoute.HandleFunc("/portfolio-tags", portfolioTag.Index).Methods(http.MethodGet, http.MethodOptions)
+	commonRoute.HandleFunc("/portfolio-statuses", portfolioStatus.Index).Methods(http.MethodGet, http.MethodOptions)
 
 	return r
 }

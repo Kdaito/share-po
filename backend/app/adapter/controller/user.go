@@ -4,9 +4,7 @@ import (
 	"net/http"
 
 	"firebase.google.com/go/auth"
-	"github.com/Kdaito/share-po/app/entity"
 	"github.com/Kdaito/share-po/app/usecase/port"
-	"github.com/Kdaito/share-po/gen/models"
 	"gorm.io/gorm"
 )
 
@@ -38,22 +36,7 @@ func (u *UserController) newInputPort(w http.ResponseWriter) port.UserInputPort 
 	return u.inputFactory(outputPort, repository, u.authClient)
 }
 
-func (u *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
+func (u *UserController) Get(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	var req models.UserRequest
-	if err := parseModelFromRequest(r, &req); err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
-	}
-	newUser := &entity.User{
-		FirebaseUID: req.FirebaseUID,
-		Name:        req.Name,
-		Email:       req.Email,
-	}
-	u.newInputPort(w).CreateUser(ctx, newUser)
-}
-
-func (u *UserController) GetUser(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	u.newInputPort(w).GetUser(ctx)
+	u.newInputPort(w).Get(ctx)
 }

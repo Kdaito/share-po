@@ -19,7 +19,7 @@ func NewPortfolioRepository(conn *gorm.DB) port.PortfolioRepository {
 	}
 }
 
-func (p *Portfolio) CreatePortfolio(ctx context.Context, portfolio *models.PortfolioRequest) (*entity.Portfolio, error) {
+func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioRequest) (*entity.Portfolio, error) {
 	newPortfolio := &entity.Portfolio{
 		Description: portfolio.Description,
 		GithubLink: portfolio.GithubLink,

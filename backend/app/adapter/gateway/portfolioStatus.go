@@ -18,7 +18,7 @@ func NewPortfolioStatusRepository(conn *gorm.DB) port.PortfolioStatusRepository 
 	}
 }
 
-func (p *PortfolioStatusRepository) GetPortfolioStatuses(ctx context.Context) ([]*entity.PortfolioStatus, error) {
+func (p *PortfolioStatusRepository) Index(ctx context.Context) ([]*entity.PortfolioStatus, error) {
 	var portfolioStatuses []*entity.PortfolioStatus
 	if err := p.conn.Find(&portfolioStatuses).Error; err != nil {
 		return nil, err
