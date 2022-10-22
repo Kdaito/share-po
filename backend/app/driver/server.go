@@ -85,6 +85,9 @@ func (s *Server) Route() *mux.Router {
 	// user
 	user := controller.NewUserController(presenter.NewUserOutputPort, interactor.NewUserInputPort, gateway.NewUserRepository, s.db, s.authClient)
 
+	// portfolio
+	portfolio := controller.NewPortfolioController(presenter.NewPortfolioOutputPort, interactor.NewPortfolioInputPort, gateway.NewPortfolioRepository, s.db)
+
 	// portfolio tag
 	portfolioTag := controller.NewPortfolioTagController(presenter.NewPortfolioTagOutputPort, interactor.NewPortfolioTagInputPort, gateway.NewPortfolioTagRepository, s.db)
 
@@ -98,7 +101,7 @@ func (s *Server) Route() *mux.Router {
 	authRoute.Use(authMiddleware.Handler)
 
 	authRoute.HandleFunc("/user", user.GetUser).Methods(http.MethodGet, http.MethodOptions)
-
+	authRoute.HandleFunc("/portfolio", portfolio.CreatePortfolio).Methods(http.MethodPost, http.MethodOptions)
 	commonRoute.HandleFunc("/portfolio-tags", portfolioTag.GetPortfolioTags).Methods(http.MethodGet, http.MethodOptions)
 	commonRoute.HandleFunc("/portfolio-statuses", portfolioStatus.GetPortfolioStatuses).Methods(http.MethodGet, http.MethodOptions)
 

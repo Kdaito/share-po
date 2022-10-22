@@ -1,23 +1,29 @@
 package controller
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
+
+	"github.com/go-openapi/strfmt"
 )
 
-func parseModelFromRequest[T interface{}](r *http.Request, model *T) {
-	// リクエストを読み込む
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		fmt.Print("read allでエラーでとるわ")
-	}
-	defer r.Body.Close()
+type requestModel interface {
+	UnmarshalBinary(b []byte) error
+	Validate(strfmt.Registry) error
+}
 
-	// リクエストを引数に受け取った構造体にパースする
-	err = json.Unmarshal(body, model)
+func parseModelFromRequest(r *http.Request, model requestModel) error {
+	body, err := ioutil.ReadAll(r.Body);
+	defer r.Body.Close()
 	if err != nil {
-		fmt.Print("いやパース失敗しとるがな")
+		return err
 	}
+
+	model.UnmarshalBinary(body)
+
+	if err := model.Validate(strfmt.Default); err != nil {
+		return err
+	}
+
+	return nil
 }

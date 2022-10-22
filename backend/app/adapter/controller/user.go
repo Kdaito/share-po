@@ -41,7 +41,10 @@ func (u *UserController) newInputPort(w http.ResponseWriter) port.UserInputPort 
 func (u *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	var req models.UserRequest
-	parseModelFromRequest(r, &req)
+	if err := parseModelFromRequest(r, &req); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+	}
 	newUser := &entity.User{
 		FirebaseUID: req.FirebaseUID,
 		Name:        req.Name,

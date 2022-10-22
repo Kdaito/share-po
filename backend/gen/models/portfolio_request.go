@@ -30,7 +30,7 @@ type PortfolioRequest struct {
 	ShareLink string `json:"shareLink,omitempty"`
 
 	// status
-	Status float64 `json:"status,omitempty"`
+	Status int64 `json:"status,omitempty"`
 
 	// tags
 	Tags []int64 `json:"tags"`

@@ -145,11 +145,13 @@ definitions:
       description:
         type: string
       status:
-        type: number
+        type: integer
+        format: int64
       tags:
         type: array
         items:
           type: integer
+          format: int64
       githubLink:
         type: string
       shareLink:
