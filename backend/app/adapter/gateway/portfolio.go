@@ -45,9 +45,9 @@ func (p *Portfolio) Index(ctx context.Context, offset, limit int) (*models.Portf
 			return nil, err
 		}
 		userRes := &models.User{
-			ID:          int64(user.ID),
-			Name:        user.Name,
-			CreatedAt:   strfmt.DateTime(user.CreatedAt),
+			ID:        int64(user.ID),
+			Name:      user.Name,
+			CreatedAt: strfmt.DateTime(user.CreatedAt),
 		}
 
 		// レスポンス用に整形する
@@ -81,7 +81,7 @@ func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioReque
 		if err := p.conn.Create(&newPortfolio).Error; err != nil {
 			return err
 		}
-	
+
 		for _, tag := range portfolio.Tags {
 			var newTag entity.PortfolioTag
 			newTag.ID = uint(tag)
@@ -94,7 +94,6 @@ func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioReque
 	}); tXErr != nil {
 		return nil, tXErr
 	}
-
 
 	return newPortfolio, nil
 }

@@ -11,7 +11,7 @@ import (
 
 const (
 	DEFAULT_OFFSET = 0
-	DEFAULT_LIMIT = 10
+	DEFAULT_LIMIT  = 10
 )
 
 type PortfolioOutputFactory func(w http.ResponseWriter) port.PortfolioOutputPort
@@ -47,7 +47,7 @@ func (p *PortfolioController) Index(w http.ResponseWriter, r *http.Request) {
 	var limit int
 	if queryOffset := r.URL.Query().Get("offset"); queryOffset == "" {
 		offset = DEFAULT_OFFSET
-		} else {
+	} else {
 		offset, _ = strconv.Atoi(queryOffset)
 	}
 	if queryLimit := r.URL.Query().Get("limit"); queryLimit == "" {
