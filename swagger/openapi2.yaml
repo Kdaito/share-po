@@ -72,13 +72,11 @@ paths:
       parameters:
         - name: offset
           in: query
-          schema:
-            type: integer
+          type: integer
           description: The number of items to skip before starting to collect the result set
         - name: limit
           in: query
-          schema:
-            tpe: integer
+          type: integer
           description: The number of items to return
       responses:
         "200":

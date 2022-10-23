@@ -1,51 +1,94 @@
-import { Box, Pagination, Stack } from '@mui/material';
-import React from 'react';
+import { Box, Button, Pagination, Stack } from '@mui/material';
+import React, { useEffect } from 'react';
+import { ApiContext } from '../context/ApiContext';
 import Card from '../features/portfolio/components/organisms/Card';
+import { Portfolio } from '../openapi';
 
-const ITEM_COUNT = 81;
 const COUNT_PER_PAGE = 10;
 
 const PortFolioList: React.FC = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const { portfolioApi } = React.useContext(ApiContext);
 
-  const handleChangePage = React.useCallback(
-    (event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page),
-    []
-  );
-  const totalPage = React.useMemo(
-    () => Math.ceil(ITEM_COUNT / COUNT_PER_PAGE),
-    []
-  );
+  const [portfolios, setPortfolios] = React.useState<Portfolio[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
+  const [isExistMore, setIsExistMore] = React.useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchPortfolio()
+      .catch((e) => console.error(e))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  const fetchPortfolio = React.useCallback(async () => {
+    setIsLoadingMore(true);
+
+    const { portfolios: res } = await portfolioApi.getPortfolioList({
+      offset: portfolios.length,
+      limit: COUNT_PER_PAGE
+    });
+
+    if (res && res.length > 0) {
+      setPortfolios([...portfolios, ...res]);
+      if (res.length < COUNT_PER_PAGE) {
+        setIsExistMore(false);
+      }
+    } else {
+      setIsExistMore(false);
+    }
+
+    setIsLoadingMore(false);
+  }, [portfolios.length]);
+
+  const buttonText = React.useMemo(() => {
+    if (isLoadingMore) {
+      return '読み込み中';
+    } else {
+      return isExistMore ? 'さらに読み込む' : '全て表示済み';
+    }
+  }, [isLoadingMore, isExistMore]);
+
   return (
     <>
-      <Stack
-        spacing={2}
-        sx={{ width: '100%', maxWidth: '900px', margin: '0 auto', pt: '32px' }}
-      >
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </Stack>
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          pt: 8
-        }}
-      >
-        <Pagination
-          count={totalPage}
-          page={currentPage}
-          onChange={handleChangePage}
-          variant="outlined"
-          shape="rounded"
-        />
-      </Box>
+      {isLoading ? (
+        <>...loading</>
+      ) : (
+        <>
+          <Stack
+            spacing={2}
+            sx={{
+              width: '100%',
+              maxWidth: '900px',
+              margin: '0 auto',
+              pt: '32px'
+            }}
+          >
+            {portfolios.map((portfolio) => (
+              <Card key={portfolio.id} />
+            ))}
+          </Stack>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pt: 6,
+              pb: 8
+            }}
+          >
+            <Button
+              variant="contained"
+              sx={{ width: '200px' }}
+              disabled={isLoadingMore || !isExistMore}
+              onClick={() => fetchPortfolio()}
+            >
+              {buttonText}
+            </Button>
+          </Box>
+        </>
+      )}
     </>
   );
 };

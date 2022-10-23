@@ -16,17 +16,25 @@
 import * as runtime from '../runtime';
 import type {
   IDResponse,
+  PortfolioList,
   PortfolioRequest,
 } from '../models';
 import {
     IDResponseFromJSON,
     IDResponseToJSON,
+    PortfolioListFromJSON,
+    PortfolioListToJSON,
     PortfolioRequestFromJSON,
     PortfolioRequestToJSON,
 } from '../models';
 
 export interface CreatePortfolioRequest {
     body: PortfolioRequest;
+}
+
+export interface GetPortfolioListRequest {
+    offset?: number;
+    limit?: number;
 }
 
 /**
@@ -70,6 +78,46 @@ export class PortfolioApi extends runtime.BaseAPI {
      */
     async createPortfolio(requestParameters: CreatePortfolioRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IDResponse> {
         const response = await this.createPortfolioRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * ポートフォリオを一覧として取得します
+     * ポートフォリオ一覧取得
+     */
+    async getPortfolioListRaw(requestParameters: GetPortfolioListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PortfolioList>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // tokenAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/portfolio`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PortfolioListFromJSON(jsonValue));
+    }
+
+    /**
+     * ポートフォリオを一覧として取得します
+     * ポートフォリオ一覧取得
+     */
+    async getPortfolioList(requestParameters: GetPortfolioListRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PortfolioList> {
+        const response = await this.getPortfolioListRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
