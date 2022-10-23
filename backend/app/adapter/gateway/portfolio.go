@@ -76,17 +76,24 @@ func (p *Portfolio) Create(ctx context.Context, portfolio *models.PortfolioReque
 		StatusId:    int(portfolio.Status),
 	}
 
-	if err := p.conn.Create(&newPortfolio).Error; err != nil {
-		return nil, err
+	if tXErr := p.conn.Transaction(func(tx *gorm.DB) error {
+		if err := p.conn.Create(&newPortfolio).Error; err != nil {
+			return err
+		}
+	
+		for _, tag := range portfolio.Tags {
+			var newTag entity.PortfolioTag
+			newTag.ID = uint(tag)
+			if err := p.conn.Model(&newPortfolio).Association("Tags").Append(&newTag); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}); tXErr != nil {
+		return nil, tXErr
 	}
 
-	for _, tag := range portfolio.Tags {
-		var newTag entity.PortfolioTag
-		newTag.ID = uint(tag)
-		if err := p.conn.Model(&newPortfolio).Association("Tags").Append(&newTag); err != nil {
-			return nil, err
-		}
-	}
 
 	return newPortfolio, nil
 }
