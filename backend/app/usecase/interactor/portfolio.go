@@ -19,8 +19,8 @@ func NewPortfolioInputPort(outputPort port.PortfolioOutputPort, repository port.
 	}
 }
 
-func (p *Portfolio) Index(ctx context.Context) {
-	res, err := p.repository.Index(ctx)
+func (p *Portfolio) Index(ctx context.Context, offset, limit int) {
+	res, err := p.repository.Index(ctx, offset, limit)
 	if err != nil {
 		p.outputPort.RenderError(err)
 		return

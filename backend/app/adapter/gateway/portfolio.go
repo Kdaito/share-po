@@ -20,9 +20,10 @@ func NewPortfolioRepository(conn *gorm.DB) port.PortfolioRepository {
 	}
 }
 
-func (p *Portfolio) Index(ctx context.Context) (*models.PortfolioList, error) {
+func (p *Portfolio) Index(ctx context.Context, offset, limit int) (*models.PortfolioList, error) {
+	// ポートフォリオを取得する
 	var portfolios []*entity.Portfolio
-	if err := p.conn.Find(&portfolios).Error; err != nil {
+	if err := p.conn.Offset(offset).Limit(limit).Find(&portfolios).Error; err != nil {
 		return nil, err
 	}
 	result := make([]*models.Portfolio, 0, len(portfolios))

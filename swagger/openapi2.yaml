@@ -69,6 +69,17 @@ paths:
       operationId: get-portfolio-list
       security:
         - tokenAuth: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          schema:
+            tpe: integer
+          description: The number of items to return
       responses:
         "200":
           description: "Successful operation"
