@@ -1,8 +1,8 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Setting from './pages/Setting';
-import PlayerList from './pages/PortfolioList';
-import AddPortfolio from './pages/AddPortfolio';
+import PlayerList from './pages/portfolio/List';
+import AddPortfolio from './pages/portfolio/Create';
 import SignIn from './pages/auth/SignIn';
 import AuthProvider from './context/AuthContext';
 import UserProvider from './context/UserContext';

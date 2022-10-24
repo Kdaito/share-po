@@ -2,6 +2,7 @@ import React from 'react';
 import { PortfolioForm } from '../../types';
 import FormOrganism from '../organisms/Form';
 import ConfirmModal from '../organisms/ConfirmModal';
+import { Box } from '@mui/material';
 
 type Props = {
   data: PortfolioForm | undefined;
@@ -26,7 +27,7 @@ const Form: React.FC<Props> = ({ data, setData, onClickConfirm }) => {
   );
 
   return (
-    <>
+    <Box sx={{ width: '900px', pt: '32px', margin: '0 auto' }}>
       {data && (
         <ConfirmModal
           data={data}
@@ -36,7 +37,7 @@ const Form: React.FC<Props> = ({ data, setData, onClickConfirm }) => {
         />
       )}
       <FormOrganism onClickSubmit={onClickSubmit} />
-    </>
+    </Box>
   );
 };
 

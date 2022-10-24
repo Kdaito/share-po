@@ -1,8 +1,7 @@
-import { Box, Button, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
-import { ApiContext } from '../context/ApiContext';
-import Card from '../features/portfolio/components/organisms/Card';
-import { Portfolio } from '../openapi';
+import { ApiContext } from '../../context/ApiContext';
+import List from '../../features/portfolio/components/templates/list';
+import { Portfolio } from '../../openapi';
 
 const COUNT_PER_PAGE = 10;
 
@@ -49,47 +48,19 @@ const PortFolioList: React.FC = () => {
     }
   }, [isLoadingMore, isExistMore]);
 
+  const isDisabledReadButton = React.useMemo(
+    () => isLoadingMore || !isExistMore,
+    [isLoadingMore, isExistMore]
+  );
+
   return (
-    <>
-      {isLoading ? (
-        <>...loading</>
-      ) : (
-        <>
-          <Stack
-            spacing={2}
-            sx={{
-              width: '100%',
-              maxWidth: '900px',
-              margin: '0 auto',
-              pt: '32px'
-            }}
-          >
-            {portfolios.map((portfolio) => (
-              <Card key={portfolio.id} />
-            ))}
-          </Stack>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              pt: 6,
-              pb: 8
-            }}
-          >
-            <Button
-              variant="contained"
-              sx={{ width: '200px' }}
-              disabled={isLoadingMore || !isExistMore}
-              onClick={() => fetchPortfolio()}
-            >
-              {buttonText}
-            </Button>
-          </Box>
-        </>
-      )}
-    </>
+    <List
+      isLoading={isLoading}
+      isDisabledReadButton={isDisabledReadButton}
+      portfolios={portfolios}
+      buttonText={buttonText}
+      fetchPortfolio={fetchPortfolio}
+    />
   );
 };
 
