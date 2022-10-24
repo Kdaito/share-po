@@ -21,11 +21,11 @@ const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!firebaseUser || token === '') return;
     const f = async () => {
-      const user = await userApi.getUser();
-      setUser(user);
+      const fetchUser = await userApi.getUser();
+      setUser(fetchUser);
     };
     f().catch((e: Error) => console.error(e));
-  }, [firebaseUser, token]);
+  }, [firebaseUser, token, userApi]);
 
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>

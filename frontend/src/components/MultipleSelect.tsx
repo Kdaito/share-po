@@ -23,21 +23,21 @@ type Props = {
 const MultipleSelect: React.FC<Props> = ({ id, label, choices, value, setValue }) => {
   const handleChange = (event: SelectChangeEvent<number[]>) => {
     const {
-      target: { value }
+      target: { value: targetValue }
     } = event;
-    if (typeof value !== 'string') {
-      setValue(value);
+    if (typeof targetValue !== 'string') {
+      setValue(targetValue);
     }
   };
 
-  const getValue = (id: number | undefined) => {
-    if (!id) return;
-    const text = choices.find((choice) => choice.id === id)?.text;
+  const getValue = (val: number | undefined) => {
+    if (!val) return;
+    const text = choices.find((choice) => choice.id === val)?.text;
     return text || '';
   };
 
-  const labelId = React.useMemo(() => `${id}-label`, []);
-  const inputId = React.useMemo(() => `select-${id}`, []);
+  const labelId = React.useMemo(() => `${id}-label`, [id]);
+  const inputId = React.useMemo(() => `select-${id}`, [id]);
 
   return (
     <div>
@@ -52,8 +52,8 @@ const MultipleSelect: React.FC<Props> = ({ id, label, choices, value, setValue }
           input={<OutlinedInput id={inputId} label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={getValue(value)} />
+              {selected.map((val) => (
+                <Chip key={val} label={getValue(val)} />
               ))}
             </Box>
           )}

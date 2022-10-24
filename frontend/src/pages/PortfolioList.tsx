@@ -1,4 +1,4 @@
-import { Box, Button, Pagination, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import { ApiContext } from '../context/ApiContext';
 import Card from '../features/portfolio/components/organisms/Card';
@@ -13,13 +13,6 @@ const PortFolioList: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [isExistMore, setIsExistMore] = React.useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchPortfolio()
-      .catch((e) => console.error(e))
-      .finally(() => setIsLoading(false));
-  }, []);
 
   const fetchPortfolio = React.useCallback(async () => {
     setIsLoadingMore(true);
@@ -39,7 +32,14 @@ const PortFolioList: React.FC = () => {
     }
 
     setIsLoadingMore(false);
-  }, [portfolios.length]);
+  }, [portfolios, portfolioApi]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchPortfolio()
+      .catch((e) => console.error(e))
+      .finally(() => setIsLoading(false));
+  }, [fetchPortfolio]);
 
   const buttonText = React.useMemo(() => {
     if (isLoadingMore) {

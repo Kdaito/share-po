@@ -28,7 +28,7 @@ const AddPortfolio: React.FC = () => {
         console.error(e);
       });
     console.log(data);
-  }, [data]);
+  }, [data, navigate, portfolioApi]);
 
   return (
     <Box sx={{ width: '900px', pt: '32px', margin: '0 auto' }}>

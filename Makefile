@@ -12,9 +12,13 @@ hello-docker:
 bye-docker:
 	docker-compose down
 
-.PHONY: entry-backend
-entry-backend:
+.PHONY: entry-back
+entry-back:
 	docker-compose exec backend /bin/sh
+
+.PHONY: entry-front
+entry-front:
+	docker-compose exec frontend /bin/sh
 
 .PHONY: gen-front
 gen-front:

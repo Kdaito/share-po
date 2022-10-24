@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PortfolioStatus, PortfolioTag } from '../openapi';
 import { ApiContext } from './ApiContext';
 
@@ -28,7 +28,7 @@ const ChoiceProvider: React.FC<{ children: React.ReactNode }> = ({
       setPortfolioTag(tag);
     };
     f().catch((e) => console.error(e));
-  }, []);
+  }, [portfolioStatusApi, portfolioTagApi]);
 
   return (
     <ChoiceContext.Provider value={{ portfolioStatus, portfolioTag }}>
