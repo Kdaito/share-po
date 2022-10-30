@@ -11,11 +11,11 @@ import {
 import React, { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import MultipleSelect from '../../../../components/MultipleSelect';
-import { ChoiceContext } from '../../../../context/ChoiceContext';
-import { PortfolioForm as PortfolioFormType } from '../../types';
-import { portfolioSchema } from '../../validation';
-import { UserContext } from '../../../../context/UserContext';
+import MultipleSelect from '../../../../../components/MultipleSelect';
+import { ChoiceContext } from '../../../../../context/ChoiceContext';
+import { PortfolioForm as PortfolioFormType } from '../../../types';
+import { portfolioSchema } from '../../../validation';
+import { UserContext } from '../../../../../context/UserContext';
 
 export type Props = {
   onClickSubmit: (value: PortfolioFormType) => void;

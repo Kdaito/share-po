@@ -3,8 +3,8 @@ import MUICard from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box, Chip } from '@mui/material';
-import { CardType } from '../../types';
-import { ChoiceContext } from '../../../../context/ChoiceContext';
+import { CardType } from '../../../types';
+import { ChoiceContext } from '../../../../../context/ChoiceContext';
 
 type Props = {
   handleNavigate: (id: number | undefined) => void;

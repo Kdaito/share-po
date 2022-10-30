@@ -1,9 +1,9 @@
-import Modal from '../../../../components/Modal';
+import Modal from '../../../../../components/Modal';
 import { Box } from '@mui/system';
 import React from 'react';
 import { Button, Chip, Typography } from '@mui/material';
-import { PortfolioForm } from '../../types';
-import { ChoiceContext } from '../../../../context/ChoiceContext';
+import { PortfolioForm } from '../../../types';
+import { ChoiceContext } from '../../../../../context/ChoiceContext';
 
 type Props = {
   data: PortfolioForm;
