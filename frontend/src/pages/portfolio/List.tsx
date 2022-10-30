@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ApiContext } from '../../context/ApiContext';
-import List from '../../features/portfolio/components/templates/list';
+import List from '../../features/portfolio/components/templates/List';
+import { CardType } from '../../features/portfolio/types';
 import { Portfolio } from '../../openapi';
 
 const COUNT_PER_PAGE = 10;
@@ -8,10 +9,24 @@ const COUNT_PER_PAGE = 10;
 const PortFolioList: React.FC = () => {
   const { portfolioApi } = React.useContext(ApiContext);
 
-  const [portfolios, setPortfolios] = React.useState<Portfolio[]>([]);
+  const [portfolios, setPortfolios] = React.useState<CardType[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [isExistMore, setIsExistMore] = React.useState(true);
+
+  // ポートフォリオを整形する
+  const formatPortfolio = React.useCallback((data: Portfolio[]) => {
+    const formattedData: CardType[] = data.map((portfolio) => ({
+      id: portfolio.id,
+      name: portfolio.name,
+      description: portfolio.description,
+      tags: portfolio.tags,
+      status: portfolio.status,
+      githubLink: portfolio.githubLink,
+      shareLink: portfolio.shareLink
+    }));
+    setPortfolios([...portfolios, ...formattedData]);
+  }, [portfolios]);
 
   const fetchPortfolio = React.useCallback(async () => {
     setIsLoadingMore(true);
@@ -22,7 +37,7 @@ const PortFolioList: React.FC = () => {
     });
 
     if (res && res.length > 0) {
-      setPortfolios([...portfolios, ...res]);
+      formatPortfolio(res);
       if (res.length < COUNT_PER_PAGE) {
         setIsExistMore(false);
       }
@@ -31,7 +46,7 @@ const PortFolioList: React.FC = () => {
     }
 
     setIsLoadingMore(false);
-  }, [portfolios, portfolioApi]);
+  }, [portfolios, portfolioApi, formatPortfolio]);
 
   useEffect(() => {
     setIsLoading(true);

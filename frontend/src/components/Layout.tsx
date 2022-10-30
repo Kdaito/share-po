@@ -53,7 +53,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Box sx={{ overflow: 'auto' }}>
           <List sx={{ pt: '24px' }}>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/')}>
+              <ListItemButton onClick={() => handleNavigate('/portfolios')}>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
@@ -61,7 +61,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/add-player')}>
+              <ListItemButton onClick={() => handleNavigate('/portfolios/new')}>
                 <ListItemIcon>
                   <CreateNewFolderIcon />
                 </ListItemIcon>

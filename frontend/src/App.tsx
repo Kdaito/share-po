@@ -1,9 +1,10 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Setting from './pages/Setting';
-import PlayerList from './pages/portfolio/List';
-import AddPortfolio from './pages/portfolio/Create';
+import List from './pages/portfolio/List';
+import Create from './pages/portfolio/Create';
 import SignIn from './pages/auth/SignIn';
+import Detail from './pages/portfolio/Detail';
 import AuthProvider from './context/AuthContext';
 import UserProvider from './context/UserContext';
 import AuthRoutes from './routes/AuthRoutes';
@@ -21,9 +22,12 @@ function App() {
             <ChoiceProvider>
               <Routes>
                 <Route path="/" element={<AuthRoutes />}>
-                  <Route path="/" element={<PlayerList />} />
-                  <Route path="/setting" element={<Setting />} />
-                  <Route path="/add-player" element={<AddPortfolio />} />
+                  <Route path="setting" element={<Setting />} />
+                  <Route path="portfolios" >
+                    <Route index element={<List />} />
+                    <Route path=":id" element={<Detail />} />
+                    <Route path="new" element={<Create />} />
+                  </Route>
                 </Route>
                 <Route path="/auth" element={<CommonRoutes />}>
                   <Route path="" element={<SignIn />} />
